@@ -8,6 +8,8 @@ app.controller("DisplayController", function($scope, $http){
 			$scope.displayPets = data;
 		});
 	};
+
+	$scope.update();
 });
 
 // define our fake backend
@@ -63,11 +65,8 @@ app.run(function($httpBackend) {
   $httpBackend.whenPOST('/pets').respond(function(method, url, data, headers){
     console.log('Received these data:', method, url, data, headers);
     phones.push(angular.fromJson(data));
-    return [20, {}, {}];
+    return [200, {}, {}];
   });
   
-  $httpBackend.whenGET('/pets').respond(function(method,url,data) {
-    console.log("Getting pets");
-    return [20, pets, {}];
-  });
+  $httpBackend.whenGET('/pets').respond(pets);
 });
