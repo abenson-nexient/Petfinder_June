@@ -4,8 +4,8 @@ var app = angular.module('PetFinder', ['ngMockE2E']);
 
 app.controller("DisplayController", function($scope, $http){
 	$scope.update = function(){
-		$http.get('/pets').success(function(data){
-			$scope.displayPets = data;
+		$http.get('/pets').success(function(response){
+			$scope.displayPets = response;
 		});
 	};
 
