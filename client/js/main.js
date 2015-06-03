@@ -1,3 +1,3 @@
 'use strict';
 
-var app = angular.module('PetFinder' ,[]);
+var app = angular.module('PetFinder', []);
