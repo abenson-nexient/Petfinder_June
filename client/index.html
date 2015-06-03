@@ -68,7 +68,7 @@
 <div class="petDisplay container">
 	<div class="row">
 		<div class="col-md-2">
-			<a href="#" class="thumbnail">
+			<a href="#" class="thumbnail" data-toggle="modal" data-target="#myModal">
 				<img src="img/placeholderImage.svg" alt="placeholder">
 			</a>
 		</div>
@@ -130,6 +130,37 @@
 	</div>
 </div>
 
+<!-- Pet Info Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Pet Name</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="animal-creds">
+	      	<img src="img/placeholderImage.svg">
+	        <ul>
+	        	<li><strong>Animal: </strong>Type</li>
+	        	<li><strong>Age: </strong>Age</li>
+	        	<li><strong>Sex: </strong>Sex</li>
+	        	<li><strong>Status: </strong>Status</li>
+	        	<li><strong>Size: </strong>Size</li>
+	        	<li><strong>Breed: </strong>Breed</li>
+	        	<li><strong>Mix: </strong>Mix</li>
+	        </ul>
+      	</div>
+      	<p class="animal-description">Description</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Adopt Me</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <hr/>
 
 <footer>
@@ -141,11 +172,12 @@
 	</div>
 	</div>
 </footer>
-
+	<!-- vendor js -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
+	<!-- scripts -->
 	<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

@@ -1,3 +1,7 @@
 .petDisplay {
 	margin-top: 20px;
 }
+
+#pet-modal {
+	border: 1px solid black;
+}
