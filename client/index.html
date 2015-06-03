@@ -65,66 +65,17 @@
 	</div>
 </div>
 
-<div class="petDisplay container">
-	<div class="row">
-		<div class="col-md-2">
-			<a href="#" class="thumbnail" data-toggle="modal" data-target="#myModal">
-				<img src="img/placeholderImage.svg" alt="placeholder">
-			</a>
-		</div>
-		<div class="col-md-2">
+<<<<<<< HEAD
+=======
+<div class="petDisplay container" ng-controller="DisplayController">
+	<div class="row" >
+		<div class="col-md-2" ng-repeat="pet in pets">
+>>>>>>> 36321951c727997dc5c94fcc7662190a3b1c76ce
 			<a href="#" class="thumbnail">
-				<img src="img/placeholderImage.svg" alt="placeholder">
-			</a>
-		</div>
-		<div class="col-md-2">
-			<a href="#" class="thumbnail">
-				<img src="img/placeholderImage.svg" alt="placeholder">
-			</a>
-		</div>
-		<div class="col-md-2">
-			<a href="#" class="thumbnail">
-				<img src="img/placeholderImage.svg" alt="placeholder">
-			</a>
-		</div>
-		<div class="col-md-2">
-			<a href="#" class="thumbnail">
-				<img src="img/placeholderImage.svg" alt="placeholder">
-			</a>
-		</div>
-		<div class="col-md-2">
-			<a href="#" class="thumbnail">
-				<img src="img/placeholderImage.svg" alt="placeholder">
-			</a>
-		</div>
-		<div class="col-md-2">
-			<a href="#" class="thumbnail">
-				<img src="img/placeholderImage.svg" alt="placeholder">
-			</a>
-		</div>
-		<div class="col-md-2">
-			<a href="#" class="thumbnail">
-				<img src="img/placeholderImage.svg" alt="placeholder">
-			</a>
-		</div>
-		<div class="col-md-2">
-			<a href="#" class="thumbnail">
-				<img src="img/placeholderImage.svg" alt="placeholder">
-			</a>
-		</div>
-		<div class="col-md-2">
-			<a href="#" class="thumbnail">
-				<img src="img/placeholderImage.svg" alt="placeholder">
-			</a>
-		</div>
-		<div class="col-md-2">
-			<a href="#" class="thumbnail">
-				<img src="img/placeholderImage.svg" alt="placeholder">
-			</a>
-		</div>
-		<div class="col-md-2">
-			<a href="#" class="thumbnail">
-				<img src="img/placeholderImage.svg" alt="placeholder">
+				<img ng-src="pet.images[0]" alt="placeholder">
+				<div class="caption">
+					<h3>{{pet.name}}</h3>
+				</div>
 			</a>
 		</div>
 	</div>
