@@ -1,0 +1,19 @@
+{
+  "name": "client",
+  "version": "0.0.0",
+  "homepage": "https://github.com/abenson-nexient/Petfinder_June",
+  "authors": [
+    "Cenk Yurtbilir <cyurtilir@nexient.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.0"
+  }
+}
