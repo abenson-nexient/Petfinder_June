@@ -5,3 +5,24 @@
 #pet-modal {
 	border: 1px solid black;
 }
+
+.animal-creds > img {
+	float: left;
+	width: 170px;
+}
+
+.animal-creds > ul {
+	list-style: none;
+	width: 63%;
+  float: right;
+  padding: 0px;
+  margin-left: 7%;
+}
+
+.animal-creds > ul li {
+	margin: 5px 0%;
+}
+
+.modal-body > .animal-description {
+	margin-top: 200px;
+}
