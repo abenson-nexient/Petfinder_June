@@ -68,7 +68,7 @@
 <div class="petDisplay container" ng-controller="DisplayController">
 	<div class="row" >
 		<div class="col-md-2" ng-repeat="pet in displayPets">
-			<a href="#" class="thumbnail">
+			<a href="#" class="thumbnail" data-toggle="modal" data-target="#pet-modal">
 				<img src="{{pet.images[0]}}" alt="placeholder">
 				<div class="caption">
 					<h3>{{pet.name}}</h3>
@@ -79,7 +79,7 @@
 </div>
 
 <!-- Pet Info Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="pet-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
