@@ -4,7 +4,6 @@ var app = angular.module('PetFinder', ['ngMockE2E']);
 
 app.controller("DisplayController", function($scope, $http){
 	$http.get('/pets').success(function(response){
-		debugger;
 		$scope.displayPets = response;
 	});
 });
@@ -25,7 +24,7 @@ app.run(function($httpBackend) {
 	  	age: 'adult',
 	  	status: 'available',
 	  	contact: '123-456-7890',
-	  	images: ['/img/placeholderImage.svg']
+	  	images: ['img/placeholderImage.svg']
   	},
   	{
 	  	sid: 62,
@@ -40,7 +39,7 @@ app.run(function($httpBackend) {
 	  	age: 'adult',
 	  	status: 'available',
 	  	contact: '123-456-7890',
-	  	images: ['/img/placeholderImage.svg']
+	  	images: ['img/placeholderImage.svg']
   	},
   	{
 		sid: 34,
@@ -55,7 +54,7 @@ app.run(function($httpBackend) {
 		breed: 'moutain',
 		mix: 'none',
 		description: 'very loyal, but very dangerous too. Feeds with human',
-		images: ['/img/placeholderImage.svg']
+		images: ['img/placeholderImage.svg']
 	}
   ]; 
   
