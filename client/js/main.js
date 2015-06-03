@@ -3,13 +3,10 @@
 var app = angular.module('PetFinder', ['ngMockE2E']);
 
 app.controller("DisplayController", function($scope, $http){
-	$scope.update = function(){
-		$http.get('/pets').success(function(response){
-			$scope.displayPets = response;
-		});
-	};
-
-	$scope.update();
+	$http.get('/pets').success(function(response){
+		debugger;
+		$scope.displayPets = response;
+	});
 });
 
 // define our fake backend
@@ -61,12 +58,6 @@ app.run(function($httpBackend) {
 		images: ['/img/placeholderImage.svg']
 	}
   ]; 
-  
-  $httpBackend.whenPOST('/pets').respond(function(method, url, data, headers){
-    console.log('Received these data:', method, url, data, headers);
-    phones.push(angular.fromJson(data));
-    return [200, {}, {}];
-  });
   
   $httpBackend.whenGET('/pets').respond(pets);
 });

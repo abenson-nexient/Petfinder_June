@@ -67,7 +67,7 @@
 
 <div class="petDisplay container" ng-controller="DisplayController">
 	<div class="row" >
-		<div class="col-md-2" ng-repeat="pet in pets">
+		<div class="col-md-2" ng-repeat="pet in displayPets">
 			<a href="#" class="thumbnail">
 				<img ng-src="pet.images[0]" alt="placeholder">
 				<div class="caption">
@@ -123,6 +123,7 @@
 	<!-- vendor js -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-mocks.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 	<!-- scripts -->
