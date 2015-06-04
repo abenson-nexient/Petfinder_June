@@ -54,13 +54,13 @@ app.run(function($httpBackend) {
 
   var users = [
   	{
-  		username: 'Matt',
+  		username: 'matt',
   		password: 'test',
   		firstName: 'Matthew',
   		lastName: 'McLaren'
   	},
   	{
-  		username: 'Josh',
+  		username: 'josh',
   		password: 'test123',
   		firstName: 'Joshua',
   		lastName: 'EmptyMind'
@@ -77,5 +77,9 @@ app.run(function($httpBackend) {
 
   $httpBackend.whenGET('/pets/random').respond(function() {
   	return [200, pets[Math.floor(Math.random()*pets.length)], {}];
+  });
+
+  $httpBackend.whenPOST('/user/signIn').respond(function(method, url, data) {
+  	console.log(data);
   });
 });
