@@ -3,11 +3,9 @@
 var app = angular.module('PetFinder', ['ngMockE2E']);
 
 app.controller("DisplayController", function($scope, $http){
-	$scope.update = function(){
-		$http.get('/pets').success(function(data){
-			$scope.displayPets = data;
-		});
-	};
+	$http.get('/pets').success(function(response){
+		$scope.displayPets = response;
+	});
 });
 
 // define our fake backend
@@ -26,7 +24,7 @@ app.run(function($httpBackend) {
 	  	age: 'adult',
 	  	status: 'available',
 	  	contact: '123-456-7890',
-	  	images: ['/img/placeholderImage.svg']
+	  	images: ['img/placeholderImage.svg']
   	},
   	{
 	  	sid: 62,
@@ -41,7 +39,7 @@ app.run(function($httpBackend) {
 	  	age: 'adult',
 	  	status: 'available',
 	  	contact: '123-456-7890',
-	  	images: ['/img/placeholderImage.svg']
+	  	images: ['img/placeholderImage.svg']
   	},
   	{
 		sid: 34,
@@ -56,18 +54,9 @@ app.run(function($httpBackend) {
 		breed: 'moutain',
 		mix: 'none',
 		description: 'very loyal, but very dangerous too. Feeds with human',
-		images: ['/img/placeholderImage.svg']
+		images: ['img/placeholderImage.svg']
 	}
   ]; 
   
-  $httpBackend.whenPOST('/pets').respond(function(method, url, data, headers){
-    console.log('Received these data:', method, url, data, headers);
-    phones.push(angular.fromJson(data));
-    return [20, {}, {}];
-  });
-  
-  $httpBackend.whenGET('/pets').respond(function(method,url,data) {
-    console.log("Getting pets");
-    return [20, pets, {}];
-  });
+  $httpBackend.whenGET('/pets').respond(pets);
 });
