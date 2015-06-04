@@ -13,3 +13,9 @@ hs_err_pid*
 
 # Ignore java builds.
 petfinder-app/target/
+
+#Eclipse config
+#Ignore local eclipse files
+petfinder-app/.classpath
+petfinder-app/.project
+petfinder-app/.settings/
