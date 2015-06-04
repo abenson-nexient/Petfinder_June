@@ -59,5 +59,7 @@ app.run(function($httpBackend) {
   	return [200, selectedPet, {}];
   });
 
-  $httpBackend.whenGET('/pets/random').respond(pets[Math.floor(Math.random()*pets.length)]);
+  $httpBackend.whenGET('/pets/random').respond(function() {
+  	return [200, pets[Math.floor(Math.random()*pets.length)], {}];
+  });
 });
