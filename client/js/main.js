@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('PetFinder', ['ngMockE2E']);
+var app = angular.module('PetFinder', ['ngMockE2E', 'ui.bootstrap', 'ngTouch']);
 
 // define our fake backend
 app.run(function($httpBackend) {
@@ -33,7 +33,7 @@ app.run(function($httpBackend) {
 	  	age: 'adult',
 	  	status: 'available',
 	  	contact: '123-456-7890',
-	  	images: ['img/placeholderImage.svg']
+	  	images: ['img/placeholderImage.svg', 'img/placeholderImage.svg']
   	},
   	{
 		sid: 34,
