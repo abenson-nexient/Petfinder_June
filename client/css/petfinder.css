@@ -6,7 +6,7 @@
 	border: 1px solid black;
 }
 
-.animal-creds > img {
+.animal-creds > .carousel {
 	float: left;
 	width: 170px;
 }

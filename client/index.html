@@ -87,13 +87,11 @@
       </div>
       <div class="modal-body">
       	<div class="animal-creds">
-					<div style="height: 305px">
-					  <carousel interval="myInterval">
-					    <slide ng-repeat="image in currentPet.images track by $index">
-					      <img ng-src="{{image}}" style="margin:auto;">
-					    </slide>
-					  </carousel>
-					</div>
+					<carousel interval="myInterval">
+					  <slide ng-repeat="image in currentPet.images track by $index">
+					    <img ng-src="{{image}}" style="margin:auto;">
+					  </slide>
+					</carousel>
 	        <ul>
 	        	<li><strong>Animal: </strong>{{currentPet.animal}}</li>
 	        	<li><strong>Age: </strong>{{currentPet.age}}</li>
