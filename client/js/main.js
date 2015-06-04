@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('PetFinder', ['ngMockE2E']);
+var app = angular.module('PetFinder', ['ngMockE2E', 'ui.bootstrap', 'ngTouch']);
 
 // define our fake backend
 app.run(function($httpBackend) {
@@ -33,7 +33,7 @@ app.run(function($httpBackend) {
 	  	age: 'adult',
 	  	status: 'available',
 	  	contact: '123-456-7890',
-	  	images: ['img/placeholderImage.svg']
+	  	images: ['img/placeholderImage.svg', 'img/placeholderImage.svg']
   	},
   	{
 		sid: 34,
@@ -50,7 +50,23 @@ app.run(function($httpBackend) {
 		description: 'very loyal, but very dangerous too. Feeds with human',
 		images: ['img/placeholderImage.svg']
 	}
-  ]; 
+  ];
+
+  var users = [
+  	{
+  		username: 'Matt',
+  		password: 'test',
+  		firstName: 'Matthew',
+  		lastName: 'McLaren'
+  	},
+  	{
+  		username: 'Josh',
+  		password: 'test123',
+  		firstName: 'Joshua',
+  		lastName: 'EmptyMind'
+  	}
+  ];
+
   
   $httpBackend.whenGET('/pets').respond(pets);
   $httpBackend.whenGET(new RegExp(/\/pets\/\d+/)).respond(function(method, url, data) {
@@ -59,5 +75,7 @@ app.run(function($httpBackend) {
   	return [200, selectedPet, {}];
   });
 
-  $httpBackend.whenGET('/pets/random').respond(pets[Math.floor(Math.random()*pets.length)]);
+  $httpBackend.whenGET('/pets/random').respond(function() {
+  	return [200, pets[Math.floor(Math.random()*pets.length)], {}];
+  });
 });
