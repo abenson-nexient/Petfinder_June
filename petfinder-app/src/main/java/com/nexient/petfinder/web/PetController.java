@@ -10,11 +10,15 @@ import com.nexient.petfinder.models.Pet;
 @RestController
 @RequestMapping(value="/pet")
 public class PetController {
-
+	
 	@RequestMapping(value="/random")
-	public String getRandomPet()
+	public Pet getRandomPet()
 	{
-		return "Hello from getRandomPet.";
+		
+		//PetFinderConsumer pfc = new PetFinderConsumer();
+		//Pet pet = Pet.fromPetFinderPetRecord(pfc.randomPet(null, null, null, null, null, null, null, null));
+        
+		return null;
 	}
 
 	@RequestMapping(value="/search")
@@ -23,11 +27,12 @@ public class PetController {
 	}
 	
 	@RequestMapping(value="/{sid}/{pid}")
-	public @ResponseBody Pet getPetInJSON(@PathVariable String sid, @PathVariable String pid) {
+	public @ResponseBody Pet[] getPedBySidPid(@PathVariable String sid, @PathVariable String pid) {
+		Pet[] pets = new Pet[2];
 		Pet dummy = new Pet();
-		dummy.setSid(0);
-		dummy.setPid(0);
-		return dummy;
+		pets[0] = dummy;
+		pets[1] = dummy;
+		return pets;
 	}
 	
     @RequestMapping("/")
