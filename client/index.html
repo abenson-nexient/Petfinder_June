@@ -68,7 +68,7 @@
 <div class="petDisplay container" ng-controller="DisplayController">
 	<div class="row" >
 		<div class="col-md-2" ng-repeat="pet in displayPets">
-			<a href="#" class="thumbnail" data-toggle="modal" data-target="#pet-modal">
+			<a href="#" class="thumbnail" data-toggle="modal" data-target="#pet-modal" ng-click="getCurrentPet(pet)">
 				<img ng-src="{{pet.images[0]}}" alt="placeholder">
 				<div class="caption">
 					<h3>{{pet.name}}</h3>

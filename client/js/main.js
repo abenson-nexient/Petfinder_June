@@ -11,6 +11,10 @@ app.controller("DisplayController", function($scope, $http){
 		$scope.currentPet = response;
 	});
 
+	$scope.getCurrentPet = function(pet) {
+		console.log(pet);
+	};
+
 });
 
 // define our fake backend
