@@ -1,13 +1,11 @@
 'use strict';
-(function(){
-	var app = angular.module('PetFinder', []);
+
+	var app = angular.module('PetFinder', ['ngMockE2E']);
 
 	app.controller("DisplayController", function($scope, $http){
-		$scope.update = function(){
-			$http.get('/pets').success(function(data){
-				$scope.displayPets = data;
-			});
-		};
+		$http.get('/pets').success(function(response){
+			$scope.displayPets = response;
+		});
 	});
 
 	// define our fake backend
@@ -26,7 +24,7 @@
 		  	age: 'adult',
 		  	status: 'available',
 		  	contact: '123-456-7890',
-		  	images: ['/img/placeholderImage.svg']
+		  	images: ['img/placeholderImage.svg']
 	  	},
 	  	{
 		  	sid: 62,
@@ -41,7 +39,7 @@
 		  	age: 'adult',
 		  	status: 'available',
 		  	contact: '123-456-7890',
-		  	images: ['/img/placeholderImage.svg']
+		  	images: ['img/placeholderImage.svg']
 	  	},
 	  	{
 			sid: 34,
@@ -56,13 +54,11 @@
 			breed: 'moutain',
 			mix: 'none',
 			description: 'very loyal, but very dangerous too. Feeds with human',
-			images: ['/img/placeholderImage.svg']
+			images: ['img/placeholderImage.svg']
 		}
 	  ]; 
 	  
-	 
-	  });
-	  
 	  $httpBackend.whenGET('/pets').respond(pets);
 	});
-})();
+	  
+	  
