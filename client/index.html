@@ -43,7 +43,7 @@
 	</div><!-- /.jumbotron -->
 </div>
 
-<div class="container">
+<div class="container" ng-controller="DisplayController">
 	<div class="row">
 		<div class="col-md-10">
 			<form class="form-inline" role="search">
@@ -55,9 +55,8 @@
 		</div>
 		<div class="col-md-2">
 			<div class="pull-right">
-				<a class="btn btn-info" href="#">
-					<i class="glyphico
-					n glyphicon-asterisk"></i>
+				<a class="btn btn-info" href="#" data-toggle="modal" data-target="#pet-modal" ng-click="getRandomPet()">
+					<i class="glyphicon glyphicon-asterisk"></i>
 					Random Pet
 				</a>
 			</div>
