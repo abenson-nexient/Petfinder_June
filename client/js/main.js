@@ -50,7 +50,23 @@ app.run(function($httpBackend) {
 		description: 'very loyal, but very dangerous too. Feeds with human',
 		images: ['img/placeholderImage.svg']
 	}
-  ]; 
+  ];
+
+  var users = [
+  	{
+  		username: 'Matt',
+  		password: 'test',
+  		firstName: 'Matthew',
+  		lastName: 'McLaren'
+  	},
+  	{
+  		username: 'Josh',
+  		password: 'test123',
+  		firstName: 'Joshua',
+  		lastName: 'EmptyMind'
+  	}
+  ];
+
   
   $httpBackend.whenGET('/pets').respond(pets);
   $httpBackend.whenGET(new RegExp(/\/pets\/\d+/)).respond(function(method, url, data) {
