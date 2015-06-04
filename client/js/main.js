@@ -2,12 +2,6 @@
 
 var app = angular.module('PetFinder', ['ngMockE2E']);
 
-app.controller("DisplayController", function($scope, $http){
-	$http.get('/pets').success(function(response){
-		$scope.displayPets = response;
-	});
-});
-
 // define our fake backend
 app.run(function($httpBackend) {
   var pets = [
@@ -43,7 +37,7 @@ app.run(function($httpBackend) {
   	},
   	{
 			sid: 34,
-			id: 78,
+			pid: 78,
 			name: 'Lion',
 			animal: 'cat',
 			age: "senior",
@@ -59,6 +53,7 @@ app.run(function($httpBackend) {
   ]; 
   
   $httpBackend.whenGET('/pets').respond(pets);
+  $httpBackend.whenGET('/pets/34').respond(pets[2]);
 });
 	  
 	  
