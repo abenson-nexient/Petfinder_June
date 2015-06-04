@@ -6,6 +6,11 @@ app.controller("DisplayController", function($scope, $http){
 	$http.get('/pets').success(function(response){
 		$scope.displayPets = response;
 	});
+
+	$http.get('/pets/34').success(function(response){		
+		$scope.currentPet = response;
+	});
+
 });
 
 // define our fake backend
@@ -59,6 +64,7 @@ app.run(function($httpBackend) {
   ]; 
   
   $httpBackend.whenGET('/pets').respond(pets);
+  $httpBackend.whenGET('/pets/34').respond(pets[2]);
 });
 	  
 	  
