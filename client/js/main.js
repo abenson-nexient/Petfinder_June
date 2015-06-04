@@ -10,7 +10,6 @@
 		};
 	});
 
-
 	// define our fake backend
 	app.run(function($httpBackend) {
 	  var pets = [
@@ -61,10 +60,7 @@
 		}
 	  ]; 
 	  
-	  $httpBackend.whenPOST('/pets').respond(function(method, url, data, headers){
-	    console.log('Received these data:', method, url, data, headers);
-	    phones.push(angular.fromJson(data));
-	    return [20, {}, {}];
+	 
 	  });
 	  
 	  $httpBackend.whenGET('/pets').respond(pets);
