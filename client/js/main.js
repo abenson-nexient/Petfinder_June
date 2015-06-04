@@ -80,6 +80,15 @@ app.run(function($httpBackend) {
   });
 
   $httpBackend.whenPOST('/user/signIn').respond(function(method, url, data) {
-  	console.log(data);
+  	var userData = angular.fromJson(data);
+  	var signedInUser = users.filter(function(user) {
+  		return user.username === userData.username
+  	})[0];
+
+  	if(signedInUser.password !== userData.password) {
+  		console.log('raise an error!');
+  	} else {
+  		return [200, signedInUser, {}];
+  	}
   });
 });
