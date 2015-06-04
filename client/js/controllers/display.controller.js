@@ -11,4 +11,10 @@ app.controller("DisplayController", function($scope, $http, StoreService) {
 		});
 	};
 
+	$scope.getRandomPet = function() {
+		$http.get('/pets/random').success(function(response){		
+			StoreService.storePet(response);
+		});
+	};
+
 });

@@ -36,26 +36,27 @@ app.run(function($httpBackend) {
 	  	images: ['img/placeholderImage.svg']
   	},
   	{
-			sid: 34,
-			pid: 78,
-			name: 'Lion',
-			animal: 'cat',
-			age: "senior",
-			sex: 'male',
-			status: 'available',
-			contact: '7684679809',
-			size: 20,
-			breed: 'moutain',
-			mix: 'none',
-			description: 'very loyal, but very dangerous too. Feeds with human',
-			images: ['img/placeholderImage.svg']
-		}
+		sid: 34,
+		pid: 78,
+		name: 'Lion',
+		animal: 'cat',
+		age: "senior",
+		sex: 'male',
+		status: 'available',
+		contact: '7684679809',
+		size: 20,
+		breed: 'moutain',
+		mix: 'none',
+		description: 'very loyal, but very dangerous too. Feeds with human',
+		images: ['img/placeholderImage.svg']
+	}
   ]; 
   
   $httpBackend.whenGET('/pets').respond(pets);
   $httpBackend.whenGET('/pets/24').respond(pets[0]);
   $httpBackend.whenGET('/pets/62').respond(pets[1]);
   $httpBackend.whenGET('/pets/34').respond(pets[2]);
+  $httpBackend.whenGET('/pets/random').respond(pets[Math.floor(Math.random()*pets.length)]);
 });
 	  
 	  
