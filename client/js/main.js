@@ -59,5 +59,3 @@ app.run(function($httpBackend) {
   	return [200, selectedPet, {}];
   });
 });
-	  
-	  
