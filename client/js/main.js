@@ -53,9 +53,11 @@ app.run(function($httpBackend) {
   ]; 
   
   $httpBackend.whenGET('/pets').respond(pets);
-  $httpBackend.whenGET('/pets/24').respond(pets[0]);
-  $httpBackend.whenGET('/pets/62').respond(pets[1]);
-  $httpBackend.whenGET('/pets/34').respond(pets[2]);
+  $httpBackend.whenGET(new RegExp(/\/pets\/\d+/)).respond(function(method, url, data) {
+  	var pid = parseInt(url.replace('/pets/', ''));
+  	var selectedPet = pets.filter(function(pet) {return pet.pid === pid})[0];
+  	return [200, selectedPet, {}];
+  });
 });
 	  
 	  
