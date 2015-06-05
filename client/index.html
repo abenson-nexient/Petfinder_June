@@ -11,7 +11,7 @@
 
 </head>
 <body ng-app="PetFinder">
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" ng-controller="NavController">
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -29,8 +29,8 @@
 				<li><a href="#">Link</a></li>
 			</ul>
 			<div class="navbar-right">
-  				<button type="submit"  data-toggle="modal" data-target="#user-modal" class="btn btn-primary navbar-btn">Sign Up or Sign In</button>
-  				<button type="button" class="btn btn-default navbar-btn" style="display: none;"></button>
+  				<button type="submit"  data-toggle="modal" data-target="#user-modal" class="btn btn-primary navbar-btn" ng-hide="!!isSignedIn">Sign Up or Sign In</button>
+  				<button type="button" class="btn btn-default navbar-btn" ng-show="!!isSignedIn">Hi, {{currentUser.username}}</button>
 			</div>
 		</div><!-- /.navbar-collapse -->
 	</div>
@@ -107,7 +107,7 @@
       	<p><strong>Contact: </strong>{{currentPet.contact}}</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Adopt Me</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Adopt Me</button>
       </div>
     </div>
   </div>
@@ -182,6 +182,7 @@
 
 	<!-- controllers -->
 	<script type="text/javascript" src="js/controllers/display.controller.js"></script>
+	<script type="text/javascript" src="js/controllers/nav.controller.js"></script>
 	<script type="text/javascript" src="js/controllers/modal.controller.js"></script>
 	<script type="text/javascript" src="js/controllers/user.controller.js"></script>
 
