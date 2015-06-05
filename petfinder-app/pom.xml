@@ -7,14 +7,12 @@
     <artifactId>petfinder</artifactId>
     <version>0.1.0</version>
 
-    <!--
     <repositories>
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
     </repositories>
-    -->
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -27,13 +25,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--
         <dependency>
             <groupId>com.github.jitpack-io</groupId>
             <artifactId>PetRescue-Core</artifactId>
             <version>a692a1e99a</version>
         </dependency>
-    -->
     </dependencies>
 
     <properties>
@@ -42,6 +38,11 @@
 
 
     <build>
+        <resources>
+            <resource>
+                <directory>resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
