@@ -28,9 +28,9 @@
 				<li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
 				<li><a href="#">Link</a></li>
 			</ul>
-			<div class="navbar-right" ng-controller="UserController">
+			<div class="navbar-right">
   				<button type="submit"  data-toggle="modal" data-target="#user-modal" class="btn btn-primary navbar-btn" ng-hide="!!isSignedIn">Sign Up or Sign In</button>
-  				<button type="button" class="btn btn-default navbar-btn" ng-show="!!isSignedIn">Hi</button>
+  				<button type="button" class="btn btn-default navbar-btn" ng-show="!!isSignedIn">Hi, {{currentUsername}}</button>
 			</div>
 		</div><!-- /.navbar-collapse -->
 	</div>
@@ -65,10 +65,8 @@
 			</div>
 		</div>
 	</div>
-</div>
 
-<div class="petDisplay container" ng-controller="DisplayController">
-	<div class="row" >
+	<div class="row petDisplay" >
 		<div class="col-md-2" ng-repeat="pet in displayPets">
 			<a href="#" class="thumbnail" data-toggle="modal" data-target="#pet-modal" ng-click="getCurrentPet(pet)">
 				<img ng-src="{{pet.images[0]}}" alt="placeholder">
