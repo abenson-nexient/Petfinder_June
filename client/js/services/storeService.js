@@ -2,12 +2,12 @@
 
 app.factory('StoreService', function() {
 
-var currentPet = {};
+var storedVal = {};
 
 	return {
-		storePet: function(pet) {
-			angular.copy(pet, currentPet);
+		storeVal: function(val) {
+			angular.copy(val, storedVal);
 		},
-		getCurrentPet: currentPet
+		getStoredVal: storedVal
 	};
 });

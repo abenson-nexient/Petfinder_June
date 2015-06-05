@@ -2,8 +2,6 @@
 	margin-top: 20px;
 }
 
-
-
 /*==============================*/
 /*Pet Modal*/
 /*==============================*/
@@ -59,7 +57,10 @@
 /*Sign Modal*/
 /*==============================*/
 #user-modal form[name="signIn"] .btn.btn-primary,
-#user-modal form[name="signUp"] .btn.btn-success {
+#user-modal form[name="signUp"] .btn.btn-success,
+#user-modal form[name="signIn"] label,
+#user-modal form[name="signUp"] label
+{
 	margin-top: 10px;
 }
 

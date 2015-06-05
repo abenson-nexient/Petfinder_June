@@ -11,7 +11,7 @@
 
 </head>
 <body ng-app="PetFinder">
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" ng-controller="NavController">
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -28,9 +28,10 @@
 				<li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
 				<li><a href="#">Link</a></li>
 			</ul>
-			<form class="navbar-form navbar-right">
-  				<button type="submit"  data-toggle="modal" data-target="#user-modal" class="btn btn-primary">Sign Up or Sign In</button>
-			</form>
+			<div class="navbar-right">
+  				<button type="submit"  data-toggle="modal" data-target="#user-modal" class="btn btn-primary navbar-btn" ng-hide="!!isSignedIn">Sign Up or Sign In</button>
+  				<button type="button" class="btn btn-default navbar-btn" ng-show="!!isSignedIn">Hi, {{currentUser.username}}</button>
+			</div>
 		</div><!-- /.navbar-collapse -->
 	</div>
 </nav>
@@ -64,10 +65,8 @@
 			</div>
 		</div>
 	</div>
-</div>
 
-<div class="petDisplay container" ng-controller="DisplayController">
-	<div class="row" >
+	<div class="row petDisplay" >
 		<div class="col-md-2" ng-repeat="pet in displayPets">
 			<a href="#" class="thumbnail" data-toggle="modal" data-target="#pet-modal" ng-click="getCurrentPet(pet)">
 				<img ng-src="{{pet.images[0]}}" alt="placeholder">
@@ -108,8 +107,7 @@
       	<p><strong>Contact: </strong>{{currentPet.contact}}</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Adopt Me</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Adopt Me</button>
       </div>
     </div>
   </div>
@@ -117,7 +115,7 @@
 
 
 <!-- User SignIn/SignUp Modal -->
-<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="UserController">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -126,7 +124,7 @@
       </div>
       <div class="modal-body">
       	<div class="row">
-      		<div class="col-md-6" ng-controller="SignInController">
+      		<div class="col-md-6">
       			<form class="panel panel-default" name="signIn" ng-submit="signInUser(user)">
       				<div class="panel-heading"><h3>Sign In</h3></div>
       				<div class="panel-body">
@@ -184,10 +182,12 @@
 
 	<!-- controllers -->
 	<script type="text/javascript" src="js/controllers/display.controller.js"></script>
+	<script type="text/javascript" src="js/controllers/nav.controller.js"></script>
 	<script type="text/javascript" src="js/controllers/modal.controller.js"></script>
-	<script type="text/javascript" src="js/controllers/signIn.controller.js"></script>
+	<script type="text/javascript" src="js/controllers/user.controller.js"></script>
 
 	<!-- services -->
 	<script type="text/javascript" src="js/services/storeService.js"></script>
+	<script type="text/javascript" src="js/services/userService.js"></script>
 </body>
 </html>
