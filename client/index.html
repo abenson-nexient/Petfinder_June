@@ -117,7 +117,7 @@
 
 
 <!-- User SignIn/SignUp Modal -->
-<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="UserController">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -126,7 +126,7 @@
       </div>
       <div class="modal-body">
       	<div class="row">
-      		<div class="col-md-6" ng-controller="SignInController">
+      		<div class="col-md-6">
       			<form class="panel panel-default" name="signIn" ng-submit="signInUser(user)">
       				<div class="panel-heading"><h3>Sign In</h3></div>
       				<div class="panel-body">
@@ -185,7 +185,7 @@
 	<!-- controllers -->
 	<script type="text/javascript" src="js/controllers/display.controller.js"></script>
 	<script type="text/javascript" src="js/controllers/modal.controller.js"></script>
-	<script type="text/javascript" src="js/controllers/signIn.controller.js"></script>
+	<script type="text/javascript" src="js/controllers/user.controller.js"></script>
 
 	<!-- services -->
 	<script type="text/javascript" src="js/services/storeService.js"></script>
