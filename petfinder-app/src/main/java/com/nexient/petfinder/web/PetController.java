@@ -1,24 +1,25 @@
 package com.nexient.petfinder.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.nexient.petfinder.models.Pet;
+import com.systemsinmotion.petrescue.web.PetFinderConsumer;
 
 @RestController
 @RequestMapping(value="/pet")
 public class PetController {
+
+	@Autowired
+	private PetFinderConsumer petFinderService;
 	
 	@RequestMapping(value="/random")
-	public Pet getRandomPet()
+	public @ResponseBody Pet getRandomPet()
 	{
-		
-		//PetFinderConsumer pfc = new PetFinderConsumer();
-		//Pet pet = Pet.fromPetFinderPetRecord(pfc.randomPet(null, null, null, null, null, null, null, null));
-        
-		return null;
+		Pet pet = Pet.fromPetFinderPetRecord(petFinderService.randomPet(null, null, null, null, null, null, "full", null));
+		return pet;
 	}
 
 	@RequestMapping(value="/search")

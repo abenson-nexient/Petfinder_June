@@ -1,39 +1,37 @@
 package com.nexient.petfinder.models;
 
 
+import java.math.BigInteger;
+
+import org.petfinder.entity.PetfinderPetRecord;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Pet {
-	private int sid, pid; //, animal, age, sex, status, size, breed, mix;
-	//private String name, description, images;
+	private String shelterId;
+	private BigInteger id;
 	
-	public Pet () {
-		
-	}
-	
-	public int getSid() {
-		return sid;
+	public String getShelterId() {
+		return shelterId;
 	}
 
-	public void setSid(int sid) {
-		this.sid = sid;
+	public void setShelterId(String sid) {
+		this.shelterId = sid;
 	}
 	
-	public int getPid() {
-		return pid;
+	public BigInteger getId() {
+		return id;
 	}
 
-	public void setPid(int pid) {
-		this.pid = pid;
+	public void setId(BigInteger id) {
+		this.id = id;
 	}
 	
-	/**
 	public static Pet fromPetFinderPetRecord(PetfinderPetRecord record) {
 		Pet toReturn = new Pet();
-		toReturn.pid = Integer.parseInt(record.getShelterPetId());
-		toReturn.sid = Integer.parseInt(record.getShelterId());
+		toReturn.id = record.getId();
+		toReturn.shelterId = record.getShelterId();
 		return toReturn;
 	}
-	**/
 }
