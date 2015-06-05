@@ -1,11 +1,12 @@
 'use strict';
 
-app.controller('UserController', function($scope, $http, UserService, StoreService) {
+app.controller('UserController', function($scope, $http, UserService, StoreService, $rootScope) {
 
 	$scope.signInUser = function(user) {
 		UserService.signInUser(user).then(function(response) {
-			response.isSignedIn = true;
+			$rootScope.isSignedIn = true;
 			StoreService.storeVal(response);
+			$('#user-modal').modal('hide');
 		});
 	};
 });
