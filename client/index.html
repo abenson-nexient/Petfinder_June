@@ -116,8 +116,8 @@
 </div>
 
 
-<!-- Pet Info Modal -->
-<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="ModalController">
+<!-- User SignIn/SignUp Modal -->
+<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -126,14 +126,14 @@
       </div>
       <div class="modal-body">
       	<div class="row">
-      		<div class="col-md-6">
-      			<form class="panel panel-default" name="signIn">
+      		<div class="col-md-6" ng-controller="SignInController">
+      			<form class="panel panel-default" name="signIn" ng-submit="signInUser(user)">
       				<div class="panel-heading"><h3>Sign In</h3></div>
       				<div class="panel-body">
 	      				<label>Username</label>
-	      				<input type="text" class="form-control" placeholder="Username" required/>
+	      				<input type="text" class="form-control" placeholder="Username" ng-model="user.username" required/>
 	      				<label>Password</label>
-	      				<input type="password" class="form-control" placeholder="Password" required/>
+	      				<input type="password" class="form-control" placeholder="Password" ng-model="user.password" required/>
 	      				<button type="submit" class="btn btn-primary">Sign In</button>
 	      			</div>
       			</form>
@@ -185,6 +185,7 @@
 	<!-- controllers -->
 	<script type="text/javascript" src="js/controllers/display.controller.js"></script>
 	<script type="text/javascript" src="js/controllers/modal.controller.js"></script>
+	<script type="text/javascript" src="js/controllers/signIn.controller.js"></script>
 
 	<!-- services -->
 	<script type="text/javascript" src="js/services/storeService.js"></script>
