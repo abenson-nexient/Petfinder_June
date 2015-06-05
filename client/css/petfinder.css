@@ -2,6 +2,11 @@
 	margin-top: 20px;
 }
 
+
+
+/*==============================*/
+/*Pet Modal*/
+/*==============================*/
 #pet-modal {
 	border: 1px solid black;
 }
@@ -32,7 +37,14 @@
   background-color: rgba(202, 250, 128, 0.64);
   padding: 10px;
 }
+/*==============================*/
 
+
+
+
+/*==============================*/
+/*Error Styles*/
+/*==============================*/
 .ng-invalid.ng-dirty {
 	border-color: #FA787E;
 }
@@ -40,3 +52,16 @@
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
 }
+
+/*==============================*/
+
+/*==============================*/
+/*Sign Modal*/
+/*==============================*/
+#user-modal form[name="signIn"] .btn.btn-primary,
+#user-modal form[name="signUp"] .btn.btn-success {
+	margin-top: 10px;
+}
+
+
+/*==============================*/
