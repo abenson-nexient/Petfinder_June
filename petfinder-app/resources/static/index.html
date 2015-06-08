@@ -103,7 +103,7 @@
 	        	<li><strong>Mix: </strong>{{currentPet.mix}}</li>
 	        </ul>
       	</div>
-      	<p class="animal-description">{{currentPet.description}}</p>
+      	<p class="animal-description" ng-show="currentPet.description !== ''">{{currentPet.description}}</p>
       	<p><strong>Contact: </strong>{{currentPet.contact}}</p>
       </div>
       <div class="modal-footer">

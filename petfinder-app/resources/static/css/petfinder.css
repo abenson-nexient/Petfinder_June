@@ -11,17 +11,17 @@
 
 .animal-creds > .carousel {
 	float: left;
-	width: 170px;
+	width: 222px;
 }
 
 .animal-creds > ul {
 	list-style: none;
-	width: 63%;
-  float: right;
-  margin-left: 7%;
+  margin-left: 40%;
+  height: 231px;
   border: 1px solid white;
-  border-radius: 3px;
+  border-radius: 5px;
   background-color: aliceblue;
+  overflow: auto;
 }
 
 .animal-creds > ul li {
@@ -29,7 +29,6 @@
 }
 
 .modal-body > .animal-description {
-	margin-top: 200px;
 	border: 1px solid white;
   border-radius: 5px;
   background-color: rgba(202, 250, 128, 0.64);
@@ -37,8 +36,8 @@
 }
 
 #pet-modal .modal-body .animal-creds img[alt="Pet Picture"] {
-	height: 180px;
-	width: 171px;
+	height: 231px;
+  width: 222px;
 }
 /*==============================*/
 
@@ -57,6 +56,8 @@
 }
 
 /*==============================*/
+
+
 
 /*==============================*/
 /*Sign Modal*/
