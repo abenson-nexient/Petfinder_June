@@ -2,6 +2,8 @@
 
 var app = angular.module('PetFinder', ['ui.bootstrap', 'ngTouch']);
 
+app.constant('ServerUrl', 'http://localhost:8080');
+
 // define our fake backend
 // app.run(function($httpBackend) {
 //   var pets = [

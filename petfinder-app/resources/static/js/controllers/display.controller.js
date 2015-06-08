@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller("DisplayController", function($scope, $http, StoreService) {
+app.controller("DisplayController", function($scope, $http, StoreService, ServerUrl) {
 
 	// $http.get('/pets').success(function(response){
 	// 	$scope.displayPets = response;
@@ -13,7 +13,7 @@ app.controller("DisplayController", function($scope, $http, StoreService) {
 	};
 
 	$scope.getRandomPet = function() {
-		$http.get('http://localhost:8080/pet/random').success(function(response){		
+		$http.get(ServerUrl + '/pet/random').success(function(response){		
 			StoreService.storeVal(response[0]);
 		});
 	};
