@@ -69,6 +69,7 @@ app.run(function($httpBackend) {
 
   
   $httpBackend.whenGET('/pets').respond(pets);
+  
   $httpBackend.whenGET(new RegExp(/\/pets\/\d+/)).respond(function(method, url, data) {
   	var pid = parseInt(url.replace('/pets/', ''));
   	var selectedPet = pets.filter(function(pet) {return pet.pid === pid})[0];
