@@ -1,0 +1,13 @@
+1. Install WAMPP: http://downloads.sourceforge.net/project/wampserver/WampServer%202/Wampserver%202.5/wampserver2.5-Apache-2.4.9-Mysql-5.6.17-php5.5.12-64b.exe?r=http%3A%2F%2Fwww.wampserver.com%2Fen%2F&ts=1433775927&use_mirror=iweb
+2. Set Skype to not use port 80
+	-> Tools
+		-> Options
+			-> Advanced Settings
+				-> Connection
+					x Uncheck "Use port 80 and 443 for incoming connections"
+3. Restart Skype if necessary
+4. Start all services in WAMPP with tray icon
+5. Go to http://localhost/phpmyadmin
+6. Navigate to MySQL page
+7. Import petfinder-create.sql to set up database
+8. Import populate users for dummy data
