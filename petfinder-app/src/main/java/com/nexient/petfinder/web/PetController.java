@@ -19,19 +19,19 @@ public class PetController {
 	@Autowired
 	private PetFinderConsumer petFinderService;
 	
-	@RequestMapping(value="/random")
-	public @ResponseBody Pet[] getRandomPet()
+	@RequestMapping("/random")
+	public Pet[] getRandomPet()
 	{
 		return new Pet[] { Pet.fromPetFinderPetRecord(petFinderService.randomPet(null, null, null, null, null, null, "full", null)) };
 	}
 
-	@RequestMapping(value="/search")
+	@RequestMapping("/search")
 	public String searchPets() {
 		return "Hello from searchPets.";
 	}
 	
-	@RequestMapping(value="/{id}")
-	public @ResponseBody Pet[] getPedBySidPid(@PathVariable BigInteger id) {
+	@RequestMapping("/{id}")
+	public Pet[] getPedBySidPid(@PathVariable BigInteger id) {
 		PetfinderPetRecord ppr = petFinderService.readPet(id, "xml");
 		if (ppr == null)
 			return new Pet[0];
