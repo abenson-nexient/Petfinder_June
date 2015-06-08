@@ -5,7 +5,7 @@ public class User {
 	private String username, password;
 	
 	private User () {
-		Session sess = getSessionFactory().openSession();
+		//Session sess = getSessionFactory().openSession();
 		//nothing
 	}
 	
