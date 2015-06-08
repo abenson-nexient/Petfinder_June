@@ -1,5 +1,6 @@
 package com.nexient.petfinder.web;
 
+import java.beans.PropertyEditorSupport;
 import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,14 +12,15 @@ import org.petfinder.entity.PetSizeType;
 import org.petfinder.entity.PetfinderPetRecord;
 import org.petfinder.entity.PetfinderPetRecordList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nexient.petfinder.models.Pet;
+import com.nexient.petfinder.config.CaseInsensitiveConverter;
 import com.systemsinmotion.petrescue.entity.AnimalType;
 import com.systemsinmotion.petrescue.web.PetFinderConsumer;
 
@@ -51,11 +53,6 @@ public class PetController {
 		List<PetfinderPetRecordList> petLists = new LinkedList<PetfinderPetRecordList>();
 
 
-		// Since the requester only wants count-many items, divide these across the api calls to petfinder.
-		int numRequests = breeds.length * ages.length * sizes.length;
-		count = count / numRequests;
-
-
 		Character sexValue = sex != null ? sex.value().charAt(0) : null;
 		String animalTypeValue = animalType != null ? animalType.value().toLowerCase() : null;
 		for (String breed : breeds) {
@@ -74,6 +71,7 @@ public class PetController {
 				.filter(Objects::nonNull)
 				.map(Pet::fromPetFinderPetRecord)
 				.sorted((pet1, pet2) -> pet1.getName().compareTo(pet2.getName()))
+				.limit(count)
 				.toArray(size -> new Pet[size]);
 	}
 	
@@ -91,4 +89,12 @@ public class PetController {
         return "Greetings from Petfinder!";
     }
 
+    
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+    	binder.registerCustomEditor(PetAgeType.class, new CaseInsensitiveConverter<>(PetAgeType.class));
+    	binder.registerCustomEditor(PetGenderType.class, new CaseInsensitiveConverter<>(PetGenderType.class));
+    	binder.registerCustomEditor(PetSizeType.class, new CaseInsensitiveConverter<>(PetSizeType.class));
+    	binder.registerCustomEditor(AnimalType.class, new CaseInsensitiveConverter<>(AnimalType.class));
+    }
 }
