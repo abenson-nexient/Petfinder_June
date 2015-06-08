@@ -35,6 +35,11 @@
   background-color: rgba(202, 250, 128, 0.64);
   padding: 10px;
 }
+
+#pet-modal .modal-body .animal-creds img[alt="Pet Picture"] {
+	height: 180px;
+	width: 171px;
+}
 /*==============================*/
 
 
