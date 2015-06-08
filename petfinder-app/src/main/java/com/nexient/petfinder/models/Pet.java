@@ -3,6 +3,7 @@ package com.nexient.petfinder.models;
 
 import java.math.BigInteger;
 
+import org.petfinder.entity.PetPhotoType;
 import org.petfinder.entity.PetfinderPetRecord;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -15,6 +16,10 @@ public class Pet {
 
 	public static Pet fromPetFinderPetRecord(PetfinderPetRecord record) {
 		Pet toReturn = new Pet();
+		toReturn.breeds = record.getBreeds().getBreed().stream().toArray((int size) -> new String[size]);
+		toReturn.images = record.getMedia().getPhotos().getPhoto().stream()
+				.map((PetPhotoType foo) -> foo.getValue())
+				.toArray((int size) -> new String[size]);
 		toReturn.id = record.getId();
 		toReturn.name = record.getName();
 		toReturn.animal = record.getAnimal().value();
@@ -22,8 +27,6 @@ public class Pet {
 		toReturn.sex = record.getSex().getDescription();
 		toReturn.status = record.getStatus().value();
 		toReturn.size = record.getSize().getDescription();
-		toReturn.breeds = new String[record.getBreeds().getBreed().size()];
-		toReturn.breeds = record.getBreeds().getBreed().toArray(toReturn.breeds);
 		toReturn.mix = record.getMix();
 		toReturn.description = record.getDescription();
 		toReturn.contact = record.getContact().getEmail();
