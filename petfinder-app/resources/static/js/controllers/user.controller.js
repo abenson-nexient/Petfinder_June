@@ -2,7 +2,7 @@
 
 app.controller('UserController', function($scope, UserService, StoreService, $rootScope, $q) {
 
-	var deferred = $q.defer();
+	$scope.isSignInInfoCorrect = true;
 
 	$scope.signInUser = function(user) {
 		UserService.signInUser(user).then(function(response) {
@@ -10,7 +10,7 @@ app.controller('UserController', function($scope, UserService, StoreService, $ro
 			StoreService.storeVal(response);
 			$('#user-modal').modal('hide');
 		}, function(response) {
-			// Error handling
+			$scope.isSignInInfoCorrect = false;
 		});
 	};
 });

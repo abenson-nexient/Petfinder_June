@@ -86,6 +86,12 @@ app.run(function($httpBackend) {
   		return user.username === userData.username
   	})[0];
 
-  	return signedInUser.password !== userData.password ? [401, 'Unauthorized User', {}] : [200, signedInUser, {}];
+  	if (signedInUser !== undefined) {
+  		return signedInUser.password !== userData.password ? [401, 'Unauthorized User', {}] : [200, signedInUser, {}];
+  	} else {
+  		return [401, 'Unauthorized User', {}];
+  	}
+
+  	
   });
 });
