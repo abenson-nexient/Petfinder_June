@@ -2,6 +2,7 @@ package com.nexient.petfinder.models;
 
 
 import java.math.BigInteger;
+import java.util.Objects;
 
 import org.petfinder.entity.PetPhotoType;
 import org.petfinder.entity.PetfinderPetRecord;
@@ -17,10 +18,15 @@ public class Pet {
 	public static Pet fromPetFinderPetRecord(PetfinderPetRecord record) {
 		Pet toReturn = new Pet();
 		toReturn.breeds = record.getBreeds().getBreed().stream().toArray((int size) -> new String[size]);
-		toReturn.images = record.getMedia().getPhotos().getPhoto().stream()
-				.filter((ppt) -> ppt.getSize().equals("x"))
-				.map((ppt) -> ppt.getValue())
-				.toArray((int size) -> new String[size]);
+		if (record.getMedia().getPhotos() == null) {
+			toReturn.images = new String[0];
+		} else {
+			toReturn.images = record.getMedia().getPhotos().getPhoto().stream()
+					.filter(Objects::nonNull)
+					.filter((ppt) -> ppt.getSize().equals("x"))
+					.map((ppt) -> ppt.getValue())
+					.toArray((int size) -> new String[size]);			
+		}
 		toReturn.id = record.getId();
 		toReturn.name = record.getName();
 		toReturn.animal = record.getAnimal() != null ? record.getAnimal().value() : null;

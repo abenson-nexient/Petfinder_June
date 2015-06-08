@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nexient.petfinder.models.Pet;
+import com.systemsinmotion.petrescue.entity.AnimalType;
 import com.systemsinmotion.petrescue.web.PetFinderConsumer;
 
 @RestController
@@ -36,11 +37,11 @@ public class PetController {
 
 	@RequestMapping("/search")
 	public Pet[] searchPets(@RequestParam("location") String location,
-			@RequestParam(value="animal", required=false) String animalType,
-			@RequestParam(value="breed", required=false) String[] breeds,
-			@RequestParam(value="sex", required=false) PetGenderType sex,
-			@RequestParam(value="age", required=false) PetAgeType[] ages,
-			@RequestParam(value="size", required=false) PetSizeType[] sizes,
+			@RequestParam(value="animal", required=false) AnimalType animalType,	// DOG, CAT, SMALL_FURRY, BARN_YARD, BIRD, HORSE, PIG, RABBIT, REPTILE
+			@RequestParam(value="breed", required=false) String[] breeds,       
+			@RequestParam(value="sex", required=false) PetGenderType sex,		// M, F
+			@RequestParam(value="age", required=false) PetAgeType[] ages, 		// BABY, YOUNG, ADULT, SENIOR
+			@RequestParam(value="size", required=false) PetSizeType[] sizes, 	// S, M, L, XL 
 			@RequestParam(value="offset", required=false, defaultValue="0") int offset,
 			@RequestParam(value="count", required=false, defaultValue="30") int count) {
 
@@ -55,13 +56,14 @@ public class PetController {
 		count = count / numRequests;
 
 
-		Character sexValue = sex != null ? sex.value().charAt(0) : null; 
+		Character sexValue = sex != null ? sex.value().charAt(0) : null;
+		String animalTypeValue = animalType != null ? animalType.value().toLowerCase() : null;
 		for (String breed : breeds) {
 			for (PetAgeType age : ages) {
 				String ageValue = age != null ? age.value() : null;
 				for (PetSizeType size : sizes) {
 					String sizeValue = size != null ? size.value() : null;
-					petLists.add(petFinderService.findPet(animalType, breed, sizeValue, sexValue, location, ageValue, offset, count, "basic", null));
+					petLists.add(petFinderService.findPet(animalTypeValue, breed, sizeValue, sexValue, location, ageValue, offset, count, "basic", null));
 				}
 			}
 		}
