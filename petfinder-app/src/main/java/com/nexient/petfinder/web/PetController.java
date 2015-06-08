@@ -1,10 +1,14 @@
 package com.nexient.petfinder.web;
 
+import java.math.BigInteger;
+
+import org.petfinder.entity.PetfinderPetRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.nexient.petfinder.models.Pet;
 import com.systemsinmotion.petrescue.web.PetFinderConsumer;
 
@@ -16,10 +20,9 @@ public class PetController {
 	private PetFinderConsumer petFinderService;
 	
 	@RequestMapping(value="/random")
-	public @ResponseBody Pet getRandomPet()
+	public @ResponseBody Pet[] getRandomPet()
 	{
-		Pet pet = Pet.fromPetFinderPetRecord(petFinderService.randomPet(null, null, null, null, null, null, "full", null));
-		return pet;
+		return new Pet[] { Pet.fromPetFinderPetRecord(petFinderService.randomPet(null, null, null, null, null, null, "full", null)) };
 	}
 
 	@RequestMapping(value="/search")
@@ -27,13 +30,13 @@ public class PetController {
 		return "Hello from searchPets.";
 	}
 	
-	@RequestMapping(value="/{sid}/{pid}")
-	public @ResponseBody Pet[] getPedBySidPid(@PathVariable String sid, @PathVariable String pid) {
-		Pet[] pets = new Pet[2];
-		Pet dummy = new Pet();
-		pets[0] = dummy;
-		pets[1] = dummy;
-		return pets;
+	@RequestMapping(value="/{id}")
+	public @ResponseBody Pet[] getPedBySidPid(@PathVariable BigInteger id) {
+		PetfinderPetRecord ppr = petFinderService.readPet(id, "xml");
+		if (ppr == null)
+			return new Pet[0];
+		else
+			return new Pet[] { Pet.fromPetFinderPetRecord(ppr) };
 	}
 	
     @RequestMapping("/")

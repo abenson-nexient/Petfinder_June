@@ -18,7 +18,8 @@ public class Pet {
 		Pet toReturn = new Pet();
 		toReturn.breeds = record.getBreeds().getBreed().stream().toArray((int size) -> new String[size]);
 		toReturn.images = record.getMedia().getPhotos().getPhoto().stream()
-				.map((PetPhotoType foo) -> foo.getValue())
+				.filter((ppt) -> ppt.getSize().equals("x"))
+				.map((ppt) -> ppt.getValue())
 				.toArray((int size) -> new String[size]);
 		toReturn.id = record.getId();
 		toReturn.name = record.getName();
