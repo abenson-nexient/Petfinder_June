@@ -2,9 +2,9 @@
 
 app.controller("DisplayController", function($scope, $http, StoreService) {
 
-	$http.get('/pets').success(function(response){
-		$scope.displayPets = response;
-	});
+	// $http.get('/pets').success(function(response){
+	// 	$scope.displayPets = response;
+	// });
 
 	$scope.getCurrentPet = function(pet) {
 		$http.get('/pets/' + pet.pid).success(function(response){		
@@ -13,8 +13,8 @@ app.controller("DisplayController", function($scope, $http, StoreService) {
 	};
 
 	$scope.getRandomPet = function() {
-		$http.get('/pets/random').success(function(response){		
-			StoreService.storeVal(response);
+		$http.get('http://localhost:8080/pet/random').success(function(response){		
+			StoreService.storeVal(response[0]);
 		});
 	};
 
