@@ -49,7 +49,7 @@
 <div class="container" ng-controller="DisplayController">
 	<div class="row">
 		<div class="col-md-10">
-			<form class="form-inline" role="search">
+			<form class="form-inline" role="search" name="petSearch">
 				<div class="form-group">
 				  <input type="text" class="form-control" placeholder="Location">
 				</div>
@@ -59,10 +59,14 @@
 				<div class="form-group">
 				  <input type="text" class="form-control" placeholder="Breed">
 				</div>
-				<select class="form-control" multiple>
-					<option>Baby </option>
-					<option>Young </option>
-				</select>
+				<div class="form-group">
+					<span class="placeholder" ng-click="dropDown()">Age</span>
+					<ul>
+						<li>Baby</li>
+						<li>Young</li>
+						<li>Old</li>
+					</ul>
+				</div>
 				<button type="submit" class="btn btn-default">Search</button>
 			</form>
 		</div>
@@ -75,7 +79,6 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="row petDisplay" >
 		<div class="col-md-2" ng-repeat="pet in displayPets">
 			<a href="#" class="thumbnail" data-toggle="modal" data-target="#pet-modal" ng-click="getCurrentPet(pet)">
@@ -191,6 +194,7 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-touch.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.0.10/bootstrap-hover-dropdown.min.js"></script>
 
 	<!-- scripts -->
 	<script type="text/javascript" src="js/main.js"></script>

@@ -18,4 +18,8 @@ app.controller("DisplayController", function($scope, $http, StoreService, Server
 		});
 	};
 
+	$scope.dropDown = function() {
+		$('form[name="petSearch"] .form-group ul').slideToggle(300);
+	}
+
 });
