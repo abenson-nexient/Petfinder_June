@@ -23,7 +23,7 @@ public class Pet {
 				.toArray((int size) -> new String[size]);
 		toReturn.id = record.getId();
 		toReturn.name = record.getName();
-		toReturn.animal = record.getAnimal().value();
+		toReturn.animal = record.getAnimal() != null ? record.getAnimal().value() : null;
 		toReturn.age = record.getAge().getValue();
 		toReturn.sex = record.getSex().getDescription();
 		toReturn.status = record.getStatus().value();
