@@ -3,6 +3,6 @@
 angular.module('PetFinder').directive('dropdown', function() {
 	return {
 		restrict: 'AE',
-		templateUrl: 'templates/dropdown.html'
+		templateUrl: '../templates/dropdown.html'
 	}
 });
