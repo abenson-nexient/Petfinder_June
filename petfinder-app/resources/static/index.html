@@ -53,14 +53,7 @@
 				<div class="form-group">
 				  <input type="text" class="form-control" placeholder="Location">
 				</div>
-				<div class="form-group" ng-click="dropDown($event)">
-					<span class="placeholder"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Type</span>
-					<ul hidden>
-						<li><input type="checkbox" /> Dog</li>
-						<li><input type="checkbox" /> Cat</li>
-						<li><input type="checkbox" /> Lizard</li>
-					</ul>
-				</div>
+				<dropdown></dropdown>
 				<div class="form-group">
 				  <input type="text" class="form-control" placeholder="Breed">
 				</div>
@@ -221,5 +214,8 @@
 	<!-- services -->
 	<script type="text/javascript" src="js/services/storeService.js"></script>
 	<script type="text/javascript" src="js/services/userService.js"></script>
+
+	<!-- directives -->
+	<script type="text/javascript" src="js/directives/dropdownDirective.js"></script>
 </body>
 </html>
