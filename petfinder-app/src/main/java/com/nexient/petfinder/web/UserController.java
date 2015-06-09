@@ -17,16 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nexient.petfinder.models.User;
 
 @RestController
-@RequestMapping(value="/user")
+@RequestMapping({"/user", "/user/"})
 public class UserController {
-	
+
 	@RequestMapping("/new/{username}/{password}/{id}")
 	public void newUser(@PathVariable String username, @PathVariable String password, @PathVariable int id) {
 		Session session = null;
 		SessionFactory sessionFactory =new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		
+
 		User obj = new User();
 		obj.setUsername(username);
 		obj.setPassword(password);
@@ -37,26 +37,21 @@ public class UserController {
 		tx.commit();
 		session.close();
 	}
-	
-	@RequestMapping("/{id}")
+
+	@RequestMapping({"/{id}", "/{id}/"})
 	public User getUserByID(@PathVariable int id) {
 		Session session = null;
 		SessionFactory sessionFactory =new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
-		
+
 		User obj;
 		obj = (User) session.get(User.class.getName(), id);
 
 		session.close();
-		
+
 		return obj;
 	}
-	
-	@RequestMapping("/")
-	public String index() {
-		 return "Greetings from UserController!";
-	}
-	
+
 	@ExceptionHandler
 	void handleIllegalArgumentException(IllegalArgumentException e, HttpServletResponse response) throws IOException {
 		response.sendError(HttpStatus.BAD_REQUEST.value());

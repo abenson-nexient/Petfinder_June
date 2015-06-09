@@ -33,19 +33,19 @@ import com.systemsinmotion.petrescue.entity.AnimalType;
 import com.systemsinmotion.petrescue.web.PetFinderConsumer;
 
 @RestController
-@RequestMapping(value="/pet")
+@RequestMapping("/pet")
 public class PetController {
 
 	@Autowired
 	private PetFinderConsumer petFinderService;
 
-	@RequestMapping("/random")
+	@RequestMapping({"/random", "/random/"})
 	public Pet[] getRandomPet()
 	{
 		return new Pet[] { Pet.fromPetFinderPetRecord(petFinderService.randomPet(null, null, null, null, null, null, "full", null)) };
 	}
 
-	@RequestMapping("/search")
+	@RequestMapping({"/search", "/search/"})
 	public Pet[] searchPets(@RequestParam("location") String location,
 			@RequestParam(value="animal", required=false) AnimalType animalType,		// DOG, CAT, SMALL_FURRY, BARN_YARD, BIRD, HORSE, PIG, RABBIT, REPTILE
 			@RequestParam(value="breed", required=false) String[] breeds,
@@ -118,18 +118,13 @@ public class PetController {
 				.toArray(size -> new Pet[size]);
 	}
 
-	@RequestMapping("/{id}")
+	@RequestMapping({"/{id}", "/{id}/"})
 	public Pet[] getPedBySidPid(@PathVariable BigInteger id) {
 		PetfinderPetRecord ppr = petFinderService.readPet(id, "xml");
 		if (ppr == null)
 			return new Pet[0];
 		else
 			return new Pet[] { Pet.fromPetFinderPetRecord(ppr) };
-	}
-
-	@RequestMapping("/")
-	public String index() {
-		return "Greetings from Petfinder!";
 	}
 
 	@ExceptionHandler
