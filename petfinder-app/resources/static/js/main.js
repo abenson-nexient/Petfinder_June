@@ -1,8 +1,8 @@
 'use strict';
 
-var app = angular.module('PetFinder', ['ui.bootstrap', 'ngTouch']);
+angular.module('PetFinder', ['ui.bootstrap', 'ngTouch']);
 
-app.constant('ServerUrl', 'http://localhost:8080');
+angular.module('PetFinder').constant('ServerUrl', 'http://localhost:8080');
 
 // define our fake backend
 // app.run(function($httpBackend) {

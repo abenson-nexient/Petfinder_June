@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller("DisplayController", function($scope, $http, StoreService, ServerUrl) {
+angular.module('PetFinder').controller("DisplayController", function($scope, $http, StoreService, ServerUrl) {
 
 	// $http.get('/pets').success(function(response){
 	// 	$scope.displayPets = response;
@@ -19,7 +19,7 @@ app.controller("DisplayController", function($scope, $http, StoreService, Server
 	};
 
 	$scope.dropDown = function(event) {
-		$(event.target).next().slideToggle(300);
-	}
+		$(event.target).next().slideToggle(250);
+	};
 
 });

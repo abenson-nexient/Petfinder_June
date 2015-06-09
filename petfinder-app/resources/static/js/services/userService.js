@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('UserService', function($http, $q) {
+angular.module('PetFinder').factory('UserService', function($http, $q) {
 	return {
 		signInUser: function(user) {
 			return $q(function(resolve, reject) {

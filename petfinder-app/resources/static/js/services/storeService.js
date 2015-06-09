@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('StoreService', function() {
+angular.module('PetFinder').factory('StoreService', function() {
 
 var storedVal = {};
 

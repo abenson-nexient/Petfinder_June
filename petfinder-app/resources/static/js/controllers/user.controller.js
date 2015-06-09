@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('UserController', function($scope, UserService, StoreService, $rootScope, $q) {
+angular.module('PetFinder').controller('UserController', function($scope, UserService, StoreService, $rootScope, $q) {
 
 	$scope.isSignInInfoCorrect = true;
 
