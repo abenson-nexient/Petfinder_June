@@ -9,12 +9,20 @@ angular.module('PetFinder').directive('dropdown', function() {
 			data: '='
 		},
 		link: function(scope, element) {
+
+			scope.n = 0;
+
  			scope.dropDown = function(event) {
- 				$(event.delegateTarget).children().eq(1).slideDown(250);
+ 				$(event.delegateTarget).children().eq(1).stop(true, true).slideDown(250);
  			};
 
  			scope.backUp = function(event) {
- 				$(event.delegateTarget).children().eq(1).slideUp(250);
+ 				$(event.delegateTarget).children().eq(1).stop(true, true).slideUp(250);
+ 			};
+
+ 			scope.updateTitle = function(event) {
+ 				scope.title = scope.n === 0 ? event.target.value : 'Multiple';
+ 				scope.n += 1;
  			};
 		}
 	}
