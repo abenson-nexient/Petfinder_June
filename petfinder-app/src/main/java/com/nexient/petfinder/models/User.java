@@ -1,26 +1,21 @@
 package com.nexient.petfinder.models;
 
 public class User {
-	private int userID;
-	private String username, password;
 	
-	private User () {
-		//Session sess = getSessionFactory().openSession();
-		//nothing
-	}
-	
-	private User (int id, String name, String pass) {
-		this.username = name;
-		this.userID = id;
-		this.password = pass;
+	private int userid;
+	private String username;
+	private String password;
+
+	public User () {
+		// Nothing
 	}
 
-	public int getUserID() {
-		return userID;
+	public int getUserid() {
+		return userid;
 	}
 
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setUserid(int userid) {
+		this.userid = userid;
 	}
 
 	public String getUsername() {
