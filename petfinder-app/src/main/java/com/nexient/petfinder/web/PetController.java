@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.petfinder.entity.PetAgeType;
 import org.petfinder.entity.PetGenderType;
 import org.petfinder.entity.PetSizeType;
+import org.petfinder.entity.PetfinderBreedList;
 import org.petfinder.entity.PetfinderPetRecord;
 import org.petfinder.entity.PetfinderPetRecordList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,14 +64,21 @@ public class PetController {
 			List<String> breedsAsList = Arrays.asList(breeds);
 			breedsAsList.replaceAll(breed -> breed.toLowerCase());
 			if (animalType != null) {
-				List<String> breedList = petFinderService.breedList(animalType.value().toLowerCase(), null).getBreed();
-				breedList.replaceAll(breed -> breed.toLowerCase());
-				breedsAreValid = breedList.containsAll(breedsAsList);
+				PetfinderBreedList breedListContainer = petFinderService.breedList(animalType.value().toLowerCase(), null);
+				if (breedListContainer == null) {
+					breedsAreValid = false;
+				} else {
+					List<String> breedList = petFinderService.breedList(animalType.value().toLowerCase(), null).getBreed();
+					breedList.replaceAll(breed -> breed.toLowerCase());
+					breedsAreValid = breedList.containsAll(breedsAsList);
+				}
 			} else {
 				breedsAreValid = Arrays.stream(AnimalType.values())
 						.map(type -> type.value().toLowerCase())
 						.parallel()
-						.map(typeString -> petFinderService.breedList(typeString, null).getBreed())
+						.map(typeString -> petFinderService.breedList(typeString, null))
+						.filter(Objects::nonNull)
+						.map(breedList -> breedList.getBreed())
 						.flatMap(list -> list.stream())
 						.map(breed -> breed.toLowerCase())
 						.collect(Collectors.toCollection(TreeSet::new))
