@@ -40,6 +40,11 @@
   width: 222px;
   border-radius: 3px;
 }
+
+.petDisplay img {
+  height: 180px;
+  width: 170px;
+}
 /*==============================*/
 
 

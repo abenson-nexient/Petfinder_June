@@ -2,9 +2,9 @@
 
 angular.module('PetFinder').controller("DisplayController", function($scope, $http, StoreService, ServerUrl) {
 
-	// $http.get('/pets').success(function(response){
-	// 	$scope.displayPets = response;
-	// });
+	$http.get(ServerUrl + '/pet/search?location=MI').success(function(response){
+		$scope.displayPets = response;
+	});
 
 	$scope.age = ['Baby', 'Young', 'Adult', 'Senior'];
 	$scope.sex = ['Male', 'Female', 'Unknown'];
@@ -14,8 +14,8 @@ angular.module('PetFinder').controller("DisplayController", function($scope, $ht
 	});
 
 	$scope.getCurrentPet = function(pet) {
-		$http.get('/pets/' + pet.pid).success(function(response){		
-			StoreService.storeVal(response);
+		$http.get(ServerUrl + '/pet/' + pet.id).success(function(response){		
+			StoreService.storeVal(response[0]);
 		});
 	};
 
