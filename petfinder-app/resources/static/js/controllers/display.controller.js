@@ -19,7 +19,7 @@ angular.module('PetFinder').controller("DisplayController", function($scope, $ht
 	};
 
 	$scope.dropDown = function(event) {
-		$(event.target).next().slideToggle(250);
+		$(event.delegateTarget).children().eq(1).slideToggle(250);
 	};
 
 });
