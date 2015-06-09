@@ -46,6 +46,11 @@ public class MetaController {
 		return breeds;
 	}
 
+	@RequestMapping("/animals")
+	public String[] getAnimalTypes() {
+		return Arrays.stream(AnimalType.values()).map(animalType -> animalType.name().toLowerCase()).toArray(size -> new String[size]);
+	}
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(AnimalType.class, new CaseInsensitiveConverter<>(AnimalType.class));
