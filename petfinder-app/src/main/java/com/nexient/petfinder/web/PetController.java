@@ -119,7 +119,7 @@ public class PetController {
 	}
 
 	@RequestMapping({"/{id}", "/{id}/"})
-	public Pet[] getPedBySidPid(@PathVariable BigInteger id) {
+	public Pet[] getPetById(@PathVariable BigInteger id) {
 		PetfinderPetRecord ppr = petFinderService.readPet(id, "xml");
 		if (ppr == null)
 			return new Pet[0];
