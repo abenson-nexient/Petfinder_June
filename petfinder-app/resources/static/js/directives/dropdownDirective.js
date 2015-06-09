@@ -9,8 +9,12 @@ angular.module('PetFinder').directive('dropdown', function() {
 			data: '='
 		},
 		link: function(scope, element) {
- 			scope.dropDownToggle = function(event) {
- 				$(event.delegateTarget).children().eq(1).slideToggle(250);
+ 			scope.dropDown = function(event) {
+ 				$(event.delegateTarget).children().eq(1).slideDown(250);
+ 			};
+
+ 			scope.backUp = function(event) {
+ 				$(event.delegateTarget).children().eq(1).slideUp(250);
  			};
 		}
 	}
