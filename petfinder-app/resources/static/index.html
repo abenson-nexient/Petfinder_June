@@ -54,7 +54,8 @@
 				  <input type="text" class="form-control" placeholder="Location">
 				</div>
 				<select class="form-control">
-					<option>Type</option>
+				  <option value="" selected="selected">Any</option>
+					<option ng-repeat="type in animalTypes" value="{{type}}">{{type}}</option>
 				</select>
 				<div class="form-group">
 				  <input type="text" class="form-control" placeholder="Breed">

@@ -8,6 +8,10 @@ angular.module('PetFinder').controller("DisplayController", function($scope, $ht
 
 	$scope.age = ['Baby', 'Young', 'Adult', 'Senior'];
 	$scope.sex = ['Male', 'Female', 'Unknown'];
+ 
+	$http.get(ServerUrl + '/meta/animals').success(function(response) {
+		$scope.animalTypes = response;
+	});
 
 	$scope.getCurrentPet = function(pet) {
 		$http.get('/pets/' + pet.pid).success(function(response){		
