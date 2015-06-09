@@ -24,7 +24,7 @@ USE petfinder;
 
 -- --------------------------------------------------------
 
-DROP TABLE IF EXISTS 'users';
+DROP TABLE IF EXISTS users;
 
 --
 -- Table structure for table `users`
