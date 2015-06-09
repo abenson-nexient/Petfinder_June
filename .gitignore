@@ -20,6 +20,10 @@ petfinder-app/.classpath
 petfinder-app/.project
 petfinder-app/.settings/
 
+# Ignore front end deps.
+petfinder-app/resources/static/node_modules
+
 # Ignore editor buffers etc.
 *.swp
 *~
+
