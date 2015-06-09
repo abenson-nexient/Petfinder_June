@@ -53,26 +53,12 @@
 				<div class="form-group">
 				  <input type="text" class="form-control" placeholder="Location">
 				</div>
-				<dropdown></dropdown>
+				<dropdown title="Type" data="['Temp']"></dropdown>
 				<div class="form-group">
 				  <input type="text" class="form-control" placeholder="Breed">
 				</div>
-				<div class="form-group" ng-click="dropDown($event)">
-					<span class="placeholder"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Age</span>
-					<ul hidden>
-						<li><input type="checkbox" /> Baby</li>
-						<li><input type="checkbox" /> Young</li>
-						<li><input type="checkbox" /> Old</li>
-					</ul>
-				</div>
-				<div class="form-group" ng-click="dropDown($event)">
-					<span class="placeholder"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Gender</span>
-					<ul hidden>
-						<li><input type="checkbox" /> Male</li>
-						<li><input type="checkbox" /> Female</li>
-						<li><input type="checkbox" /> Unknown</li>
-					</ul>
-				</div>
+				<dropdown title="Age" data="age" ng-click="dropDown($event)"></dropdown>
+				<dropdown title="Sex" data="sex" ng-click="dropDown($event)"></dropdown>
 				<button type="submit" class="btn btn-default">Search</button>
 			</form>
 		</div>
