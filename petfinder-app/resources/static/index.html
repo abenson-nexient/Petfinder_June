@@ -53,12 +53,14 @@
 				<div class="form-group">
 				  <input type="text" class="form-control" placeholder="Location">
 				</div>
-				<dropdown title="Type" data="['Temp']"></dropdown>
+				<select class="form-control">
+					<option>Type</option>
+				</select>
 				<div class="form-group">
 				  <input type="text" class="form-control" placeholder="Breed">
 				</div>
-				<dropdown title="Age" data="age" ng-click="dropDown($event)"></dropdown>
-				<dropdown title="Sex" data="sex" ng-click="dropDown($event)"></dropdown>
+				<dropdown title="Age" data="age"></dropdown>
+				<dropdown title="Sex" data="sex"></dropdown>
 				<button type="submit" class="btn btn-default">Search</button>
 			</form>
 		</div>

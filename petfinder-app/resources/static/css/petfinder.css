@@ -119,4 +119,8 @@ form[name="petSearch"] button[type="submit"] {
   width: 130px;
 }
 
+.glyphicon.glyphicon-triangle-bottom {
+  font-size: 10px;
+}
+
 /*==============================*/

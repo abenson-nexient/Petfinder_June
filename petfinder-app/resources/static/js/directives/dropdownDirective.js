@@ -9,9 +9,9 @@ angular.module('PetFinder').directive('dropdown', function() {
 			data: '='
 		},
 		link: function(scope, element) {
- 			scope.dropDown = function(event) {
+ 			scope.dropDownToggle = function(event) {
  				$(event.delegateTarget).children().eq(1).slideToggle(250);
- 			}
+ 			};
 		}
 	}
 });
