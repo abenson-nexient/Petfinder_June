@@ -53,18 +53,23 @@
 				<div class="form-group">
 				  <input type="text" class="form-control" placeholder="Location">
 				</div>
-				<select class="form-control">
-					<option>Type</option>
-				</select>
+				<div class="form-group">
+					<span class="placeholder" ng-mouseover="dropDown($event)">Type</span>
+					<ul hidden>
+						<li><input type="checkbox" /> Dog</li>
+						<li><input type="checkbox" /> Cat</li>
+						<li><input type="checkbox" /> Lizard</li>
+					</ul>
+				</div>
 				<div class="form-group">
 				  <input type="text" class="form-control" placeholder="Breed">
 				</div>
 				<div class="form-group">
-					<span class="placeholder" ng-click="dropDown()">Age</span>
-					<ul>
-						<li>Baby</li>
-						<li>Young</li>
-						<li>Old</li>
+					<span class="placeholder" ng-mouseover="dropDown($event)">Age</span>
+					<ul hidden>
+						<li><input type="checkbox" /> Baby</li>
+						<li><input type="checkbox" /> Young</li>
+						<li><input type="checkbox" /> Old</li>
 					</ul>
 				</div>
 				<button type="submit" class="btn btn-default">Search</button>
