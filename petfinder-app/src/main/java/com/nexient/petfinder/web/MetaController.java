@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nexient.petfinder.config.CaseInsensitiveConverter;
-import com.nexient.petfinder.models.BreedList;
 import com.systemsinmotion.petrescue.entity.AnimalType;
 import com.systemsinmotion.petrescue.web.PetFinderConsumer;
 
@@ -24,15 +23,14 @@ public class MetaController {
 	private PetFinderConsumer petFinderService;
 
 	@RequestMapping("/breeds")
-	public BreedList getBreeds(@RequestParam(value="animal", required=false) AnimalType animal) {
-		String animalValue = animal == null ? null : animal.value().toLowerCase();
+	public String[] getBreeds(@RequestParam(value="animal", required=false) AnimalType animal) {
 		String[] breeds;
-		if (animalValue != null) {
-			PetfinderBreedList pfbl = petFinderService.breedList(animalValue, "xml");
-			if (pfbl != null) {
-				breeds = pfbl.getBreed().stream().toArray(size -> new String[size]);
-			} else {
+		if (animal != null) {
+			PetfinderBreedList pfbl = petFinderService.breedList(animal.value().toLowerCase(), "xml");
+			if (pfbl == null) {
 				breeds = new String[] {};
+			} else {
+				breeds = pfbl.getBreed().stream().toArray(size -> new String[size]);
 			}
 		} else {
 			breeds = Arrays.stream(AnimalType.values())
@@ -45,8 +43,7 @@ public class MetaController {
 					.map(breed -> breed.toLowerCase())
 					.toArray(size -> new String[size]);
 		}
-
-		return new BreedList(animal, breeds);
+		return breeds;
 	}
 
 	@InitBinder
