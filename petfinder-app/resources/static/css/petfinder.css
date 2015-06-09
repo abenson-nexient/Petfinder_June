@@ -1,6 +1,3 @@
-.petDisplay {
-	margin-top: 20px;
-}
 
 /*==============================*/
 /*Pet Modal*/
@@ -39,6 +36,10 @@
 	height: 231px;
   width: 222px;
   border-radius: 3px;
+}
+
+.petDisplay {
+  margin-top: 100px;
 }
 
 .petDisplay img {

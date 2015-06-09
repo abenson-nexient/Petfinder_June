@@ -49,20 +49,23 @@
 <div class="container" ng-controller="DisplayController">
 	<div class="row">
 		<div class="col-md-10">
-			<form class="form-inline" role="search" name="petSearch">
+			<form class="form-inline" role="search" name="petSearch" ng-submit="searchPets(pet)">
 				<div class="form-group">
-				  <input type="text" class="form-control" placeholder="Location">
+				  <input type="text" class="form-control" placeholder="Location" ng-model="pet.location" required>
 				</div>
-				<select class="form-control">
+				<select class="form-control" ng-model="pet.animal">
 				  <option value="" selected="selected">Any</option>
 					<option ng-repeat="type in animalTypes" value="{{type}}">{{type}}</option>
 				</select>
 				<div class="form-group">
-				  <input type="text" class="form-control" placeholder="Breed">
+				  <input type="text" class="form-control" placeholder="Breed" ng-model="pet.breed">
 				</div>
-				<dropdown title="Age" data="age"></dropdown>
-				<dropdown title="Sex" data="sex"></dropdown>
-				<button type="submit" class="btn btn-default">Search</button>
+				<dropdown title="Age" data="ageOptions" model="pet.age"></dropdown>
+				<select class="form-control" ng-model="pet.sex">
+				  <option value="" selected="selected">Sex</option>
+					<option ng-repeat="sex in sexOptions" value="{{sex}}">{{sex}}</option>
+				</select>
+				<button type="submit" class="btn btn-default" ng-disabled="petSearch.$invalid">Search</button>
 			</form>
 		</div>
 		<div class="col-md-2">
@@ -74,6 +77,7 @@
 			</div>
 		</div>
 	</div>
+	<hr />
 	<div class="row petDisplay" >
 		<div class="col-md-2" ng-repeat="pet in displayPets">
 			<a href="#" class="thumbnail" data-toggle="modal" data-target="#pet-modal" ng-click="getCurrentPet(pet)">
