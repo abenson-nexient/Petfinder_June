@@ -1,9 +1,12 @@
 package com.nexient.petfinder.web;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.hamcrest.Matchers.*;
 
+import org.hamcrest.collection.IsArrayContaining;
+import org.hamcrest.generator.HamcrestFactoryWriter;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -49,21 +52,60 @@ public class PetControllerTest {
 	}
 
 	@Test
-	public void testGetRandomPet() throws Exception { //TODO: implement
+	public void testPetRoot() throws Exception {
+		mockMvc.perform(get("/pet").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+		.andExpect(status().isNotFound());
+	}
+
+	@Test
+	public void testGetRandomPet() throws Exception {
+		String petElement = "$[*]['%s']";
+		
 		mockMvc.perform(get("/pet/random").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 		.andExpect(status().isOk())
-		.andExpect(content().contentType("application/json;charset=UTF-8"));
+		.andExpect(content().contentType("application/json;charset=UTF-8"))
+		.andExpect(jsonPath("$").isArray())
+		.andExpect(jsonPath("$", hasSize(1))) // Only difference from testSearchpets.
+		.andExpect(jsonPath("$[*].name", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].animal", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].age", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].sex", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].status", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].size", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].mix", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].description", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].contact", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].id", everyItem(isA(Integer.class))))
+		.andExpect(jsonPath("$[*].breeds").isArray())
+		.andExpect(jsonPath("$[*].breeds[*]", everyItem(either(isA(String.class)).or(isEmptyOrNullString()))))
+		.andExpect(jsonPath("$[*].images").isArray())
+		.andExpect(jsonPath("$[*].images[*]", everyItem(either(isA(String.class)).or(isEmptyOrNullString()))));
 	}
 
 	@Test
-	public void testSearchPets() throws Exception { //TODO: implement
+	public void testSearchPets() throws Exception {
 		mockMvc.perform(get("/pet/search?location=MI").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 		.andExpect(status().isOk())
-		.andExpect(content().contentType("application/json;charset=UTF-8"));
+		.andExpect(content().contentType("application/json;charset=UTF-8"))
+		.andExpect(jsonPath("$").isArray())
+		.andExpect(jsonPath("$[*].name", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].animal", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].age", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].sex", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].status", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].size", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].mix", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].description", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].contact", everyItem(isA(String.class))))
+		.andExpect(jsonPath("$[*].id", everyItem(isA(Integer.class))))
+		.andExpect(jsonPath("$[*].breeds").isArray())
+		.andExpect(jsonPath("$[*].breeds[*]", everyItem(either(isA(String.class)).or(isEmptyOrNullString()))))
+		.andExpect(jsonPath("$[*].images").isArray())
+		.andExpect(jsonPath("$[*].images[*]", everyItem(either(isA(String.class)).or(isEmptyOrNullString()))));
 	}
 
 	@Test
-	public void testGetPetById() throws Exception { //TODO: implement
+	public void testGetPetById() throws Exception {
 		int id = 32296622;
 		mockMvc.perform(get("/pet/" + id).accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 		.andExpect(status().isOk())
