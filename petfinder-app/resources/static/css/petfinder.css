@@ -39,7 +39,7 @@
 }
 
 .petDisplay {
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .petDisplay img {
@@ -89,22 +89,13 @@
 /*Search*/
 /*==============================*/
 
-form[name="petSearch"] .form-group ul {
+/*form[name="petSearch"] .form-group ul {
   list-style: none;
   padding: 10px 16px;
   border: 1px solid rgb(204, 204, 204);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
   position: absolute;
   top: 33px;
-}
-
-form[name="petSearch"] .placeholder {
-  display: inline-block;
-  border: 1px solid rgb(204, 204, 204);
-  border-radius: 4px;
-  padding: 6px 0px;
-  width: 80px;
-  text-align: center;
 }
 
 .placeholder:hover {
@@ -114,7 +105,7 @@ form[name="petSearch"] .placeholder {
 
 .placeholder:focus {
   border-color: blue;
-}
+}*/
 
 form[name="petSearch"] .form-group {
   margin: 0px 5px;

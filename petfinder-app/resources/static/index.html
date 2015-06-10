@@ -60,7 +60,10 @@
 				<div class="form-group">
 				  <input type="text" class="form-control" placeholder="Breed" ng-model="pet.breed">
 				</div>
-				<dropdown title="Age" data="ageOptions" model="pet.age"></dropdown>
+				<select class="form-control" ng-model="pet.age">
+				  <option value="" selected="selected">Age</option>
+					<option ng-repeat="age in ageOptions" value="{{age}}">{{age}}</option>
+				</select>
 				<select class="form-control" ng-model="pet.sex">
 				  <option value="" selected="selected">Sex</option>
 					<option ng-repeat="sex in sexOptions" value="{{sex}}">{{sex}}</option>
