@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('PetFinder').controller('SearchController', function($scope, $http, StoreService, ServerUrl, DisplayService) {
+angular.module('PetFinder').controller('SearchController', function($scope, $http, StoreService, ServerUrl, DisplayService, SearchService) {
 
 	$scope.ageOptions = ['Baby', 'Young', 'Adult', 'Senior'];
 	$scope.sexOptions = ['m', 'f'];
@@ -14,13 +14,9 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 	});
 
 	$scope.searchPets = function(pet) {
-		var queryArray = [], query;
-		for(var i in pet)
-			queryArray.push(i + '=' + pet[i]);
-		query = queryArray.join('&');
-		$http.get(ServerUrl + '/pet/search?' + query).success(function(response) {
-			
-			$scope.displayPets = response;
+		var query = SearchService.genSearchQuery(pet);
+		$http.get(ServerUrl + '/pet/search?' + query).success(function(response) {		
+			$scope.displayPets = DisplayService.beautifyPetName(response);
 		}).error(function(response) {
 			console.log(response);
 		});
