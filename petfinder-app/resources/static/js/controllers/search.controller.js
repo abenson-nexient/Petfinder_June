@@ -4,7 +4,8 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 
 	$scope.ageOptions = ['Baby', 'Young', 'Adult', 'Senior'];
 	$scope.sexOptions = ['m', 'f'];
-
+	var globalPetSearchParams = {};
+	var count = 0
 	$http.get(ServerUrl + '/pet/search?location=MI').success(function(response){	
 		$scope.displayPets = response;
 	});
@@ -14,8 +15,10 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 	});
 
 	$scope.searchPets = function(pet) {
-		pet.count = 100;	
+		count += 50;
+		pet.count = count;
 		var query = SearchService.genSearchQuery(pet);
+		globalPetSearchParams = pet;
 		$http.get(ServerUrl + '/pet/search?' + query).success(function(response) {		
 			$scope.displayPets = response;
 		}).error(function(response) {
@@ -37,6 +40,9 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 		});
 	};
 
-
+	window.onscroll = function(event) {
+		if ((window.innerHeight + window.scrollY >= document.body.offsetHeight) && globalPetSearchParams.hasOwnProperty('location'))
+			$scope.searchPets(globalPetSearchParams);
+	}
 
 });
