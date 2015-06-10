@@ -86,7 +86,7 @@
 			<a href="#" class="thumbnail" data-toggle="modal" data-target="#pet-modal" ng-click="getCurrentPet(pet)">
 				<img ng-src="{{pet.images[0]}}" alt="Animal Picture">
 				<div class="caption">
-					<h3>{{pet.name}}</h3>
+					<h3>{{pet.name | beautify}}</h3>
 				</div>
 			</a>
 		</div>
@@ -211,10 +211,12 @@
 	<!-- services -->
 	<script type="text/javascript" src="js/services/storeService.js"></script>
 	<script type="text/javascript" src="js/services/userService.js"></script>
-	<script type="text/javascript" src="js/services/displayService.js"></script>
 	<script type="text/javascript" src="js/services/searchService.js"></script>
 
 	<!-- directives -->
 	<script type="text/javascript" src="js/directives/dropdownDirective.js"></script>
+
+	<!-- filters -->
+	<script type="text/javascript" src="js/filters/petname.filter.js"></script>
 </body>
 </html>

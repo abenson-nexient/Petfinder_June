@@ -120,4 +120,12 @@ form[name="petSearch"] button[type="submit"] {
   font-size: 10px;
 }
 
+.thumbnail {
+  height: 274px;
+}
+
+.thumbnail .caption {
+  padding-left: 9px;
+}
+
 /*==============================*/
