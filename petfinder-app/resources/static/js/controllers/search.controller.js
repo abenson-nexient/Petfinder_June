@@ -14,6 +14,7 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 	});
 
 	$scope.searchPets = function(pet) {
+		pet.count = 100;	
 		var query = SearchService.genSearchQuery(pet);
 		$http.get(ServerUrl + '/pet/search?' + query).success(function(response) {		
 			$scope.displayPets = response;
@@ -29,10 +30,13 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 	};
 
 	$scope.getBreeds = function(event) {
+		if(event.target.value === '') return;
 		var selectedAnimalType = $scope.animalTypes[event.target.value];
-		if(selectedAnimalType === undefined) return;
 		$http.get(ServerUrl + '/meta/breeds?animal=' + selectedAnimalType).success(function(response) {
 			$scope.selectedAnimalBreeds = response;
 		});
 	};
+
+
+
 });
