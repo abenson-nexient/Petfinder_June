@@ -111,9 +111,18 @@ form[name="petSearch"] .form-group {
   margin: 0px 5px;
 }
 
+form[name="petSearch"] label {
+  display: block;
+}
+
 form[name="petSearch"] button[type="submit"] {
-  margin-left: 24px;
+  margin: 25px 0px 0px 24px;
   width: 130px;
+}
+
+form[name="petSearch"] select,
+#random-pet-button {
+  margin-top: 25px;
 }
 
 .glyphicon.glyphicon-triangle-bottom {
@@ -127,5 +136,7 @@ form[name="petSearch"] button[type="submit"] {
 .thumbnail .caption {
   padding-left: 9px;
 }
+
+
 
 /*==============================*/

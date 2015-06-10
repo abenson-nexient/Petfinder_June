@@ -51,28 +51,27 @@
 		<div class="col-md-10">
 			<form class="form-inline" role="search" name="petSearch" ng-submit="searchPets(pet)">
 				<div class="form-group">
+					<label for="location">Location</label>
 				  <input type="text" class="form-control" placeholder="Location" ng-model="pet.location" required>
 				</div>
-				<select class="form-control" ng-model="pet.animal">
-				  <option value="" selected="selected">Any</option>
-					<option ng-repeat="type in animalTypes" value="{{type}}">{{type}}</option>
+				<select class="form-control" ng-options="type for type in animalTypes" ng-model="pet.animal">
+					<option value="">Type</option>
 				</select>
 				<div class="form-group">
-				  <input type="text" class="form-control" placeholder="Breed" ng-model="pet.breed">
+					<label for="breed">Breeds</label>
+				  <input type="text" class="form-control" placeholder="Please Choose Type First" ng-model="pet.breed" ng-disabled="!pet.animal">
 				</div>
-				<select class="form-control" ng-model="pet.age">
-				  <option value="" selected="selected">Age</option>
-					<option ng-repeat="age in ageOptions" value="{{age}}">{{age}}</option>
+				<select class="form-control" ng-options="age for age in ageOptions" ng-model="pet.age">
+					<option value="">Age</option>
 				</select>
-				<select class="form-control" ng-model="pet.sex">
-				  <option value="" selected="selected">Sex</option>
-					<option ng-repeat="sex in sexOptions" value="{{sex}}">{{sex}}</option>
+				<select class="form-control" ng-options="sex for sex in sexOptions" ng-model="pet.sex">
+					<option value="">Sex</option>
 				</select>
 				<button type="submit" class="btn btn-default" ng-disabled="petSearch.$invalid">Search</button>
 			</form>
 		</div>
 		<div class="col-md-2">
-			<div class="pull-right">
+			<div class="pull-right" id="random-pet-button">
 				<a class="btn btn-info" href="#" data-toggle="modal" data-target="#pet-modal" ng-click="getRandomPet()">
 					<i class="glyphicon glyphicon-asterisk"></i>
 					Random Pet
