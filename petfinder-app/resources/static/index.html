@@ -54,12 +54,12 @@
 					<label for="location">Location</label>
 				  <input type="text" class="form-control" placeholder="Location" ng-model="pet.location" required>
 				</div>
-				<select class="form-control" ng-options="type for type in animalTypes" ng-model="pet.animal">
+				<select class="form-control" ng-options="type for type in animalTypes" ng-model="pet.animal" ng-blur="getBreeds($event)">
 					<option value="">Type</option>
 				</select>
 				<div class="form-group">
 					<label for="breed">Breeds</label>
-				  <input type="text" class="form-control" placeholder="Please Choose Type First" ng-model="pet.breed" ng-disabled="!pet.animal">
+				  <input type="text" class="form-control" placeholder="Please Choose Type First" ng-model="pet.breed" ng-disabled="!pet.animal" typeahead="breed for breed in selectedAnimalBreeds">
 				</div>
 				<select class="form-control" ng-options="age for age in ageOptions" ng-model="pet.age">
 					<option value="">Age</option>

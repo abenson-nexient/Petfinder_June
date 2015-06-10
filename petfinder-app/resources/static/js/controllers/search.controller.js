@@ -27,4 +27,12 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 			StoreService.storeVal(response[0]);
 		});
 	};
+
+	$scope.getBreeds = function(event) {
+		var selectedAnimalType = $scope.animalTypes[event.target.value];
+		if(selectedAnimalType === undefined) return;
+		$http.get(ServerUrl + '/meta/breeds?animal=' + selectedAnimalType).success(function(response) {
+			$scope.selectedAnimalBreeds = response;
+		});
+	};
 });
