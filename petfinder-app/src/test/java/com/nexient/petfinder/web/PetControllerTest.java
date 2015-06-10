@@ -53,7 +53,6 @@ public class PetControllerTest {
 		mockMvc.perform(get("/pet/random").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType("application/json;charset=UTF-8"));
-
 	}
 
 	@Test
@@ -65,10 +64,11 @@ public class PetControllerTest {
 
 	@Test
 	public void testGetPetById() throws Exception { //TODO: implement
-		int id = 26764477;
+		int id = 32296622;
 		mockMvc.perform(get("/pet/" + id).accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 		.andExpect(status().isOk())
-		.andExpect(content().contentType("application/json;charset=UTF-8"));
+		.andExpect(content().contentType("application/json;charset=UTF-8"))
+		.andExpect(content().json("[{\"images\": [\"http://photos.petfinder.com/photos/pets/32296622/1/?bust=1433004499&width=500&-x.jpg\"],\"breeds\": [\"Domestic Short Hair\"],\"name\": \"Pressley\",\"animal\": \"Cat\",\"age\": \"Baby\",\"sex\": \"Female\",\"status\": \"A\",\"size\": \"Medium\",\"mix\": \"yes\",\"description\": \"Primary Color: Brown Secondary Color: White Weight: 1.85 Age: 0yrs 0mths 10wks\",\"contact\": \"ilovethemutts@yahoo.com\",\"id\": 32296622}]"));
 	}
 
 }
