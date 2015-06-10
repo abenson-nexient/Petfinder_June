@@ -28,14 +28,14 @@ public class Pet {
 		}
 		toReturn.id = record.getId();
 		toReturn.name = record.getName();
-		toReturn.animal = record.getAnimal() != null ? record.getAnimal().value() : null;
-		toReturn.age = record.getAge().getValue();
-		toReturn.sex = record.getSex().getDescription();
-		toReturn.status = record.getStatus().value();
-		toReturn.size = record.getSize().getDescription();
 		toReturn.mix = record.getMix();
 		toReturn.description = record.getDescription();
-		toReturn.contact = record.getContact().getEmail();
+		toReturn.animal = record.getAnimal() != null ? record.getAnimal().value()       : "Other";
+		toReturn.age = record.getAge() != null ? record.getAge().getValue()             : "Unknown";
+		toReturn.sex = record.getSex() != null ? record.getSex().getDescription()       : "Unknown";
+		toReturn.status = record.getStatus() != null ? record.getStatus().value() 	    : "?";
+		toReturn.size = record.getSize() != null ? record.getSize().getDescription()    : "Unknown";
+		toReturn.contact = record.getContact() != null ? record.getContact().getEmail() : "N/A";
 		return toReturn;
 	}
 
