@@ -4,7 +4,6 @@ package com.nexient.petfinder.models;
 import java.math.BigInteger;
 import java.util.Objects;
 
-import org.petfinder.entity.PetPhotoType;
 import org.petfinder.entity.PetfinderPetRecord;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
