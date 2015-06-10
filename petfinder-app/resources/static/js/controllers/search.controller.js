@@ -5,6 +5,10 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 	$scope.ageOptions = ['Baby', 'Young', 'Adult', 'Senior'];
 	$scope.sexOptions = ['m', 'f'];
 
+	$http.get(ServerUrl + '/pet/search?location=MI').success(function(response){
+		$scope.displayPets = response;
+	});
+
 	$http.get(ServerUrl + '/meta/animals').success(function(response) {
 		$scope.animalTypes = response;
 	});
@@ -15,7 +19,7 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 			queryArray.push(i + '=' + pet[i]);
 		query = queryArray.join('&');
 		$http.get(ServerUrl + '/pet/search?' + query).success(function(response) {
-			StoreService.storeValues(response);
+			$scope.displayPets = response;
 		}).error(function(response) {
 			console.log(response);
 		});
