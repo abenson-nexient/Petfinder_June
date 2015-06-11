@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nexient.petfinder.models.Pet;
+import com.nexient.petfinder.web.converters.AgeTypeConverter;
 import com.nexient.petfinder.web.converters.AnimalTypeConverter;
 import com.nexient.petfinder.web.converters.CaseInsensitiveConverter;
 import com.nexient.petfinder.web.converters.GenderTypeConverter;
@@ -136,7 +137,7 @@ public class PetController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(AgeType.class, new CaseInsensitiveConverter<>(AgeType.class));
+		binder.registerCustomEditor(AgeType.class, new AgeTypeConverter());
 		binder.registerCustomEditor(GenderType.class, new GenderTypeConverter());
 		binder.registerCustomEditor(SizeType.class, new CaseInsensitiveConverter<>(SizeType.class));
 		binder.registerCustomEditor(AnimalType.class, new AnimalTypeConverter());
