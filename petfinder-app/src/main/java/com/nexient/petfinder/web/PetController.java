@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.petfinder.entity.PetSizeType;
 import org.petfinder.entity.PetfinderBreedList;
 import org.petfinder.entity.PetfinderPetRecord;
 import org.petfinder.entity.PetfinderPetRecordList;
@@ -31,6 +30,7 @@ import com.nexient.petfinder.web.converters.CaseInsensitiveConverter;
 import com.systemsinmotion.petrescue.entity.AgeType;
 import com.systemsinmotion.petrescue.entity.AnimalType;
 import com.systemsinmotion.petrescue.entity.GenderType;
+import com.systemsinmotion.petrescue.entity.SizeType;
 import com.systemsinmotion.petrescue.web.PetFinderConsumer;
 
 @RestController
@@ -52,7 +52,7 @@ public class PetController {
 			@RequestParam(value="breed", required=false) String[] breeds,
 			@RequestParam(value="sex", required=false) GenderType sex,				// M, F
 			@RequestParam(value="age", required=false) AgeType[] ages, 				// BABY, YOUNG, ADULT, SENIOR
-			@RequestParam(value="size", required=false) PetSizeType[] sizes, 			// S, M, L, XL
+			@RequestParam(value="size", required=false) SizeType[] sizes, 			// S, M, L, XL
 			@RequestParam(value="offset", required=false, defaultValue="0") int offset,
 			@RequestParam(value="count", required=false, defaultValue="30") int count) {
 		// Validate Location
@@ -93,7 +93,7 @@ public class PetController {
 
 
 		ages = ages != null ? ages : new AgeType[] { null };
-		sizes = sizes != null ? sizes : new PetSizeType[] { null};
+		sizes = sizes != null ? sizes : new SizeType[] { null};
 		List<PetfinderPetRecordList> petLists = new LinkedList<PetfinderPetRecordList>();
 
 
@@ -102,8 +102,8 @@ public class PetController {
 		for (String breed : breeds) {
 			for (AgeType age : ages) {
 				String ageValue = age != null ? age.description : null;
-				for (PetSizeType size : sizes) {
-					String sizeValue = size != null ? size.value() : null;
+				for (SizeType size : sizes) {
+					String sizeValue = size != null ? size.description : null;
 					petLists.add(petFinderService.findPet(animalTypeValue, breed, sizeValue, sexValue, location, ageValue, offset, count, "basic", null));
 				}
 			}
@@ -137,7 +137,7 @@ public class PetController {
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(AgeType.class, new CaseInsensitiveConverter<>(AgeType.class));
 		binder.registerCustomEditor(GenderType.class, new CaseInsensitiveConverter<>(GenderType.class));
-		binder.registerCustomEditor(PetSizeType.class, new CaseInsensitiveConverter<>(PetSizeType.class));
+		binder.registerCustomEditor(SizeType.class, new CaseInsensitiveConverter<>(SizeType.class));
 		binder.registerCustomEditor(AnimalType.class, new AnimalTypeConverter());
 	}
 }
