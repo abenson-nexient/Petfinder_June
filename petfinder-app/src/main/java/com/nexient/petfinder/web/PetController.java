@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.petfinder.entity.PetGenderType;
 import org.petfinder.entity.PetSizeType;
 import org.petfinder.entity.PetfinderBreedList;
 import org.petfinder.entity.PetfinderPetRecord;
@@ -31,6 +30,7 @@ import com.nexient.petfinder.web.converters.AnimalTypeConverter;
 import com.nexient.petfinder.web.converters.CaseInsensitiveConverter;
 import com.systemsinmotion.petrescue.entity.AgeType;
 import com.systemsinmotion.petrescue.entity.AnimalType;
+import com.systemsinmotion.petrescue.entity.GenderType;
 import com.systemsinmotion.petrescue.web.PetFinderConsumer;
 
 @RestController
@@ -50,7 +50,7 @@ public class PetController {
 	public Pet[] searchPets(@RequestParam("location") String location,
 			@RequestParam(value="animal", required=false) AnimalType animalType,		// DOG, CAT, SMALL_FURRY, BARN_YARD, BIRD, HORSE, PIG, RABBIT, REPTILE
 			@RequestParam(value="breed", required=false) String[] breeds,
-			@RequestParam(value="sex", required=false) PetGenderType sex,				// M, F
+			@RequestParam(value="sex", required=false) GenderType sex,				// M, F
 			@RequestParam(value="age", required=false) AgeType[] ages, 				// BABY, YOUNG, ADULT, SENIOR
 			@RequestParam(value="size", required=false) PetSizeType[] sizes, 			// S, M, L, XL
 			@RequestParam(value="offset", required=false, defaultValue="0") int offset,
@@ -97,7 +97,7 @@ public class PetController {
 		List<PetfinderPetRecordList> petLists = new LinkedList<PetfinderPetRecordList>();
 
 
-		Character sexValue = sex != null ? sex.value().charAt(0) : null;
+		Character sexValue = sex != null ? sex.description.charAt(0) : null;
 		String animalTypeValue = animalType != null ? animalType.value().toLowerCase() : null;
 		for (String breed : breeds) {
 			for (AgeType age : ages) {
@@ -136,7 +136,7 @@ public class PetController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(AgeType.class, new CaseInsensitiveConverter<>(AgeType.class));
-		binder.registerCustomEditor(PetGenderType.class, new CaseInsensitiveConverter<>(PetGenderType.class));
+		binder.registerCustomEditor(GenderType.class, new CaseInsensitiveConverter<>(GenderType.class));
 		binder.registerCustomEditor(PetSizeType.class, new CaseInsensitiveConverter<>(PetSizeType.class));
 		binder.registerCustomEditor(AnimalType.class, new AnimalTypeConverter());
 	}
