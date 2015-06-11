@@ -17,9 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nexient.petfinder.models.User;
 
 @RestController
-@RequestMapping({"/user", "/user/"})
+@RequestMapping({"/user"})
 public class UserController {
 
+	
+	@RequestMapping("/")
+	public String hello() {
+		return "Hello from userController!";
+	}
+	
+	/**
+	
 	@RequestMapping("/new/{username}/{password}/{id}")
 	public void newUser(@PathVariable String username, @PathVariable String password, @PathVariable int id) {
 		Session session = null;
@@ -51,6 +59,8 @@ public class UserController {
 
 		return obj;
 	}
+	
+	**/
 
 	@ExceptionHandler
 	void handleIllegalArgumentException(IllegalArgumentException e, HttpServletResponse response) throws IOException {
