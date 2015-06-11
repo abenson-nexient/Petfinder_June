@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nexient.petfinder.models.Pet;
 import com.nexient.petfinder.web.converters.AgeTypeConverter;
 import com.nexient.petfinder.web.converters.AnimalTypeConverter;
-import com.nexient.petfinder.web.converters.CaseInsensitiveConverter;
 import com.nexient.petfinder.web.converters.GenderTypeConverter;
 import com.nexient.petfinder.web.converters.SizeTypeConverter;
 import com.systemsinmotion.petrescue.entity.AgeType;
