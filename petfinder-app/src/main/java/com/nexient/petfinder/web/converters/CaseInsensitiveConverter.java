@@ -1,4 +1,4 @@
-package com.nexient.petfinder.config;
+package com.nexient.petfinder.web.converters;
 
 import java.beans.PropertyEditorSupport;
 
