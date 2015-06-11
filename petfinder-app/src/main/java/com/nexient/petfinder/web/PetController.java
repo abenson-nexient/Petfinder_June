@@ -29,6 +29,7 @@ import com.nexient.petfinder.web.converters.AgeTypeConverter;
 import com.nexient.petfinder.web.converters.AnimalTypeConverter;
 import com.nexient.petfinder.web.converters.GenderTypeConverter;
 import com.nexient.petfinder.web.converters.SizeTypeConverter;
+import com.nexient.petfinder.web.util.PetFinderQuery;
 import com.systemsinmotion.petrescue.entity.AgeType;
 import com.systemsinmotion.petrescue.entity.AnimalType;
 import com.systemsinmotion.petrescue.entity.GenderType;
@@ -50,11 +51,11 @@ public class PetController {
 
 	@RequestMapping({"/search", "/search/"})
 	public Pet[] searchPets(@RequestParam("location") String location,
-			@RequestParam(value="animal", required=false) AnimalType animalType,		// DOG, CAT, SMALL_FURRY, BARN_YARD, BIRD, HORSE, PIG, RABBIT, REPTILE
+			@RequestParam(value="animal", required=false) AnimalType animalType,
 			@RequestParam(value="breed", required=false) String[] breeds,
-			@RequestParam(value="sex", required=false) GenderType sex,				// M, F
-			@RequestParam(value="age", required=false) AgeType[] ages, 				// BABY, YOUNG, ADULT, SENIOR
-			@RequestParam(value="size", required=false) SizeType[] sizes, 			// S, M, L, XL
+			@RequestParam(value="sex", required=false) GenderType genderType,
+			@RequestParam(value="age", required=false) AgeType[] ageTypes,
+			@RequestParam(value="size", required=false) SizeType[] sizeTypes,
 			@RequestParam(value="offset", required=false, defaultValue="0") int offset,
 			@RequestParam(value="count", required=false, defaultValue="30") int count) {
 		// Validate Location
@@ -67,17 +68,17 @@ public class PetController {
 			List<String> breedsAsList = Arrays.asList(breeds);
 			breedsAsList.replaceAll(breed -> breed.toLowerCase());
 			if (animalType != null) {
-				PetfinderBreedList breedListContainer = petFinderService.breedList(animalType.value().toLowerCase(), null);
+				PetfinderBreedList breedListContainer = petFinderService.breedList(PetFinderQuery.queryValue(animalType), null);
 				if (breedListContainer == null) {
 					breedsAreValid = false;
 				} else {
-					List<String> breedList = petFinderService.breedList(animalType.value().toLowerCase(), null).getBreed();
+					List<String> breedList = petFinderService.breedList(PetFinderQuery.queryValue(animalType), null).getBreed();
 					breedList.replaceAll(breed -> breed.toLowerCase());
 					breedsAreValid = breedList.containsAll(breedsAsList);
 				}
 			} else {
 				breedsAreValid = Arrays.stream(AnimalType.values())
-						.map(type -> type.value().toLowerCase())
+						.map(type -> PetFinderQuery.queryValueStrict(type))
 						.parallel()
 						.map(typeString -> petFinderService.breedList(typeString, null))
 						.filter(Objects::nonNull)
@@ -94,19 +95,19 @@ public class PetController {
 		}
 
 
-		ages = ages != null ? ages : new AgeType[] { null };
-		sizes = sizes != null ? sizes : new SizeType[] { null};
+		ageTypes = ageTypes != null ? ageTypes : new AgeType[] { null };
+		sizeTypes = sizeTypes != null ? sizeTypes : new SizeType[] { null };
 		List<PetfinderPetRecordList> petLists = new LinkedList<PetfinderPetRecordList>();
 
 
-		Character sexValue = sex != null ? sex.description.charAt(0) : null;
-		String animalTypeValue = animalType != null ? animalType.value().toLowerCase() : null;
+		Character genderTypeChar = PetFinderQuery.queryValue(genderType);
+		String animalTypeString = PetFinderQuery.queryValue(animalType);
 		for (String breed : breeds) {
-			for (AgeType age : ages) {
-				String ageValue = age != null ? age.description : null;
-				for (SizeType size : sizes) {
-					String sizeValue = size != null ? size.description : null;
-					petLists.add(petFinderService.findPet(animalTypeValue, breed, sizeValue, sexValue, location, ageValue, offset, count, "basic", null));
+			for (AgeType ageType : ageTypes) {
+				String ageTypeString = PetFinderQuery.queryValue(ageType);
+				for (SizeType size : sizeTypes) {
+					String sizeTypeString = PetFinderQuery.queryValue(size);
+					petLists.add(petFinderService.findPet(animalTypeString, breed, sizeTypeString, genderTypeChar, location, ageTypeString, offset, count, "basic", null));
 				}
 			}
 		}
