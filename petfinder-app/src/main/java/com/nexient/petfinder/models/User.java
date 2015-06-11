@@ -27,8 +27,7 @@ public class User {
 		this.enabled = enabled;
 	}
  
-	public User(String username, String password, 
-		boolean enabled, Set<UserRole> userRole) {
+	public User(String username, String password, boolean enabled, Set<UserRole> userRole) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
@@ -36,8 +35,7 @@ public class User {
 	}
  
 	@Id
-	@Column(name = "username", unique = true, 
-		nullable = false, length = 45)
+	@Column(name = "username", unique = true, nullable = false, length = 45)
 	public String getUsername() {
 		return this.username;
 	}
@@ -46,8 +44,7 @@ public class User {
 		this.username = username;
 	}
  
-	@Column(name = "password", 
-		nullable = false, length = 60)
+	@Column(name = "password", nullable = false, length = 60)
 	public String getPassword() {
 		return this.password;
 	}

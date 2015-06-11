@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
-@ComponentScan({"com.systemsinmotion", "com.nexient.petfinder"})
+@ComponentScan({"com.systemsinmotion", "com.nexient.petfinder", "com.nexient.petfinder.config"})
 public class Application {
 
     public static void main(String[] args) {
