@@ -3,7 +3,7 @@
 angular.module('PetFinder').controller('SearchController', function($scope, $http, StoreService, ServerUrl, SearchService, $timeout) {
 
 	$scope.ageOptions = ['Baby', 'Young', 'Adult', 'Senior'];
-	$scope.sexOptions = ['m', 'f'];
+	$scope.sexOptions = ['Male', 'Female', 'Unknown'];
 
 	$http.get(ServerUrl + '/pet/search?location=MI').success(function(response){	
 		$scope.displayPets = response;
