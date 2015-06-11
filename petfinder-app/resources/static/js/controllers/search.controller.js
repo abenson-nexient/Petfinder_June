@@ -1,12 +1,17 @@
 'use strict';
 
-angular.module('PetFinder').controller('SearchController', function($scope, $http, StoreService, ServerUrl, SearchService) {
+angular.module('PetFinder').controller('SearchController', function($scope, $http, StoreService, ServerUrl, SearchService, $timeout) {
 
 	$scope.ageOptions = ['Baby', 'Young', 'Adult', 'Senior'];
 	$scope.sexOptions = ['m', 'f'];
 
 	$http.get(ServerUrl + '/pet/search?location=MI').success(function(response){	
 		$scope.displayPets = response;
+		$timeout(function() {
+			$("img.lazy").lazyload({
+				effect: "fadeIn"
+			});
+		}, 300);
 	});
 
 	$http.get(ServerUrl + '/meta/animals').success(function(response) {
@@ -35,10 +40,5 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 			$scope.selectedAnimalBreeds = response;
 		});
 	};
-
-	window.onscroll = function(event) {
-		if (window.innerHeight + window.scrollY >= document.body.offsetHeight)
-			$('.petDisplay > div').lazyload({effect: "fadeIn"});
-	}
 
 });

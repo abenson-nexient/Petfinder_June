@@ -42,7 +42,7 @@
   margin-top: 50px;
 }
 
-.petDisplay img {
+.petDisplay img.lazy {
   height: 180px;
   width: 170px;
 }

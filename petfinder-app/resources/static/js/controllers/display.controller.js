@@ -8,4 +8,5 @@ angular.module('PetFinder').controller("DisplayController", function($scope, $ht
 		});
 	};
 
+
 });
