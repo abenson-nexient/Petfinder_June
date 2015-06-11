@@ -88,10 +88,13 @@ public class PetFinderTypes {
 		String queryValue;
 		switch (ageType) {
 		case ADULT:
+			queryValue = "Adult";
 		case BABY:
+			queryValue = "Baby";
 		case SENIOR:
+			queryValue = "Senior";
 		case YOUNG:
-			queryValue = ageType.name().toLowerCase();
+			queryValue = "Young";
 			break;
 		default:
 			queryValue = ageType.description;
@@ -119,7 +122,7 @@ public class PetFinderTypes {
 		case L:
 		case XL:
 		default:
-			queryValue = sizeType.name().toLowerCase();
+			queryValue = sizeType.name();
 			break;
 		}
 		return queryValue;
