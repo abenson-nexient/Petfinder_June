@@ -19,37 +19,12 @@ import com.nexient.petfinder.models.User;
 @RestController
 @RequestMapping({"/user", "/user/"})
 public class UserController {
-
-	@RequestMapping("/new/{username}/{password}/{id}")
-	public void newUser(@PathVariable String username, @PathVariable String password, @PathVariable int id) {
-		Session session = null;
-		SessionFactory sessionFactory =new Configuration().configure().buildSessionFactory();
-		session = sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
-
-		User obj = new User();
-		obj.setUsername(username);
-		obj.setPassword(password);
-		obj.setUserid(id);
-
-		session.save(obj);
-		session.flush();
-		tx.commit();
-		session.close();
-	}
-
-	@RequestMapping({"/{id}", "/{id}/"})
-	public User getUserByID(@PathVariable int id) {
-		Session session = null;
-		SessionFactory sessionFactory =new Configuration().configure().buildSessionFactory();
-		session = sessionFactory.openSession();
-
-		User obj;
-		obj = (User) session.get(User.class.getName(), id);
-
-		session.close();
-
-		return obj;
+	
+	// Implementation method modified
+	
+	@RequestMapping({"/auth_failed"})
+	public String userAuthFailed() {
+		return "Failed authentication";
 	}
 
 	@ExceptionHandler
