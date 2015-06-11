@@ -30,12 +30,30 @@ public class Pet {
 		toReturn.name = record.getName();
 		toReturn.mix = record.getMix();
 		toReturn.description = record.getDescription();
-		toReturn.animal = record.getAnimal() != null ? record.getAnimal().value()       : "Other";
-		toReturn.age = record.getAge() != null ? record.getAge().getValue()             : "Unknown";
-		toReturn.sex = record.getSex() != null ? record.getSex().getDescription()       : "Unknown";
-		toReturn.status = record.getStatus() != null ? record.getStatus().value() 	    : "?";
-		toReturn.size = record.getSize() != null ? record.getSize().getDescription()    : "Unknown";
-		toReturn.contact = record.getContact() != null ? record.getContact().getEmail() : "N/A";
+		if (record.getAnimal() == null || record.getAnimal().value() == null)
+			toReturn.animal = "?";
+		else
+			toReturn.animal = record.getAnimal().value();
+		if (record.getAnimal() == null || record.getAnimal().value() == null)
+			toReturn.animal = "?";
+		else
+			toReturn.animal = record.getAnimal().value();
+		if (record.getSex() == null || record.getSex().getDescription() == null)
+			toReturn.sex = "?";
+		else
+			toReturn.sex = record.getSex().getDescription();
+		if (record.getStatus() == null || record.getStatus().value() == null)
+			toReturn.status = "?";
+		else
+			toReturn.status = record.getStatus().value();
+		if (record.getSize() == null || record.getSize().getDescription() == null)
+			toReturn.size = "?";
+		else
+			toReturn.size = record.getSize().getDescription();
+		if (record.getContact() == null || record.getContact().getEmail() == null)
+			toReturn.contact = "?";
+		else
+			toReturn.contact = record.getContact().getEmail();
 		return toReturn;
 	}
 
