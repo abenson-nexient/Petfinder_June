@@ -28,14 +28,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
  
-	    http.authorizeRequests().antMatchers("/admin/**")
-		.access("hasRole('ROLE_ADMIN')").and().formLogin()
-		.loginPage("/login").failureUrl("/login?error")
+	    http.authorizeRequests().antMatchers("/auth")
+		.access("hasRole('ROLE_USER')")
+		.and().formLogin()
+		.loginPage("/auth/login").failureUrl("/auth/login?error")
 		.usernameParameter("username")
 		.passwordParameter("password")
-		.and().logout().logoutSuccessUrl("/login?logout")
-		.and().csrf()
-		.and().exceptionHandling().accessDeniedPage("/403");
+		.and().logout().logoutSuccessUrl("/")
+		.and().csrf();
 	}
  
 	@Bean

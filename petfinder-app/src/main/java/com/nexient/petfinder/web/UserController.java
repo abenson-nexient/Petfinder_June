@@ -21,11 +21,6 @@ import com.nexient.petfinder.models.User;
 public class UserController {
 	
 	// Implementation method modified
-	
-	@RequestMapping({"/auth_failed"})
-	public String userAuthFailed() {
-		return "Failed authentication";
-	}
 
 	@ExceptionHandler
 	void handleIllegalArgumentException(IllegalArgumentException e, HttpServletResponse response) throws IOException {
