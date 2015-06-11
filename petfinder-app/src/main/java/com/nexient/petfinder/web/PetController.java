@@ -29,6 +29,7 @@ import com.nexient.petfinder.web.converters.AgeTypeConverter;
 import com.nexient.petfinder.web.converters.AnimalTypeConverter;
 import com.nexient.petfinder.web.converters.CaseInsensitiveConverter;
 import com.nexient.petfinder.web.converters.GenderTypeConverter;
+import com.nexient.petfinder.web.converters.SizeTypeConverter;
 import com.systemsinmotion.petrescue.entity.AgeType;
 import com.systemsinmotion.petrescue.entity.AnimalType;
 import com.systemsinmotion.petrescue.entity.GenderType;
@@ -139,7 +140,7 @@ public class PetController {
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(AgeType.class, new AgeTypeConverter());
 		binder.registerCustomEditor(GenderType.class, new GenderTypeConverter());
-		binder.registerCustomEditor(SizeType.class, new CaseInsensitiveConverter<>(SizeType.class));
+		binder.registerCustomEditor(SizeType.class, new SizeTypeConverter());
 		binder.registerCustomEditor(AnimalType.class, new AnimalTypeConverter());
 	}
 }
