@@ -19,3 +19,7 @@ petfinder-app/target/
 petfinder-app/.classpath
 petfinder-app/.project
 petfinder-app/.settings/
+
+# Ignore editor buffers etc.
+*.swp
+*~
