@@ -5,7 +5,7 @@ import com.systemsinmotion.petrescue.entity.AnimalType;
 import com.systemsinmotion.petrescue.entity.GenderType;
 import com.systemsinmotion.petrescue.entity.SizeType;
 
-public class PetFinderQuery {
+public class PetFinderTypes {
 
 
 

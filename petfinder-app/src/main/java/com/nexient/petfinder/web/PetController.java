@@ -29,7 +29,7 @@ import com.nexient.petfinder.web.converters.AgeTypeConverter;
 import com.nexient.petfinder.web.converters.AnimalTypeConverter;
 import com.nexient.petfinder.web.converters.GenderTypeConverter;
 import com.nexient.petfinder.web.converters.SizeTypeConverter;
-import com.nexient.petfinder.web.util.PetFinderQuery;
+import com.nexient.petfinder.web.util.PetFinderTypes;
 import com.systemsinmotion.petrescue.entity.AgeType;
 import com.systemsinmotion.petrescue.entity.AnimalType;
 import com.systemsinmotion.petrescue.entity.GenderType;
@@ -68,17 +68,17 @@ public class PetController {
 			List<String> breedsAsList = Arrays.asList(breeds);
 			breedsAsList.replaceAll(breed -> breed.toLowerCase());
 			if (animalType != null) {
-				PetfinderBreedList breedListContainer = petFinderService.breedList(PetFinderQuery.queryValue(animalType), null);
+				PetfinderBreedList breedListContainer = petFinderService.breedList(PetFinderTypes.queryValue(animalType), null);
 				if (breedListContainer == null) {
 					breedsAreValid = false;
 				} else {
-					List<String> breedList = petFinderService.breedList(PetFinderQuery.queryValue(animalType), null).getBreed();
+					List<String> breedList = petFinderService.breedList(PetFinderTypes.queryValue(animalType), null).getBreed();
 					breedList.replaceAll(breed -> breed.toLowerCase());
 					breedsAreValid = breedList.containsAll(breedsAsList);
 				}
 			} else {
 				breedsAreValid = Arrays.stream(AnimalType.values())
-						.map(type -> PetFinderQuery.queryValueStrict(type))
+						.map(type -> PetFinderTypes.queryValueStrict(type))
 						.parallel()
 						.map(typeString -> petFinderService.breedList(typeString, null))
 						.filter(Objects::nonNull)
@@ -100,13 +100,13 @@ public class PetController {
 		List<PetfinderPetRecordList> petLists = new LinkedList<PetfinderPetRecordList>();
 
 
-		Character genderTypeChar = PetFinderQuery.queryValue(genderType);
-		String animalTypeString = PetFinderQuery.queryValue(animalType);
+		Character genderTypeChar = PetFinderTypes.queryValue(genderType);
+		String animalTypeString = PetFinderTypes.queryValue(animalType);
 		for (String breed : breeds) {
 			for (AgeType ageType : ageTypes) {
-				String ageTypeString = PetFinderQuery.queryValue(ageType);
+				String ageTypeString = PetFinderTypes.queryValue(ageType);
 				for (SizeType size : sizeTypes) {
-					String sizeTypeString = PetFinderQuery.queryValue(size);
+					String sizeTypeString = PetFinderTypes.queryValue(size);
 					petLists.add(petFinderService.findPet(animalTypeString, breed, sizeTypeString, genderTypeChar, location, ageTypeString, offset, count, "basic", null));
 				}
 			}

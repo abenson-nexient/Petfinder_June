@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nexient.petfinder.web.converters.AnimalTypeConverter;
-import com.nexient.petfinder.web.util.PetFinderQuery;
+import com.nexient.petfinder.web.util.PetFinderTypes;
 import com.systemsinmotion.petrescue.entity.AnimalType;
 import com.systemsinmotion.petrescue.web.PetFinderConsumer;
 
@@ -27,7 +27,7 @@ public class MetaController {
 	public String[] getBreeds(@RequestParam(value="animal", required=false) AnimalType animalType) {
 		String[] breeds;
 		if (animalType != null) {
-			PetfinderBreedList pfbl = petFinderService.breedList(PetFinderQuery.queryValueStrict(animalType), "xml");
+			PetfinderBreedList pfbl = petFinderService.breedList(PetFinderTypes.queryValueStrict(animalType), "xml");
 			if (pfbl == null) {
 				breeds = new String[] {};
 			} else {
@@ -35,7 +35,7 @@ public class MetaController {
 			}
 		} else {
 			breeds = Arrays.stream(AnimalType.values())
-					.map(type -> PetFinderQuery.queryValueStrict(type))
+					.map(type -> PetFinderTypes.queryValueStrict(type))
 					.parallel()
 					.map(typeString -> petFinderService.breedList(typeString, "xml"))
 					.filter(Objects::nonNull)
@@ -50,7 +50,7 @@ public class MetaController {
 	@RequestMapping({"/animals", "/animals/"})
 	public String[] getAnimalTypes() {
 		return Arrays.stream(AnimalType.values())
-				.map(animalType -> PetFinderQuery.queryValue(animalType))
+				.map(animalType -> PetFinderTypes.queryValue(animalType))
 				.toArray(size -> new String[size]);
 	}
 
