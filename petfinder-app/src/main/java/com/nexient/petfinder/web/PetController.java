@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.petfinder.entity.PetAgeType;
 import org.petfinder.entity.PetGenderType;
 import org.petfinder.entity.PetSizeType;
 import org.petfinder.entity.PetfinderBreedList;
@@ -30,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nexient.petfinder.models.Pet;
 import com.nexient.petfinder.web.converters.AnimalTypeConverter;
 import com.nexient.petfinder.web.converters.CaseInsensitiveConverter;
+import com.systemsinmotion.petrescue.entity.AgeType;
 import com.systemsinmotion.petrescue.entity.AnimalType;
 import com.systemsinmotion.petrescue.web.PetFinderConsumer;
 
@@ -51,7 +51,7 @@ public class PetController {
 			@RequestParam(value="animal", required=false) AnimalType animalType,		// DOG, CAT, SMALL_FURRY, BARN_YARD, BIRD, HORSE, PIG, RABBIT, REPTILE
 			@RequestParam(value="breed", required=false) String[] breeds,
 			@RequestParam(value="sex", required=false) PetGenderType sex,				// M, F
-			@RequestParam(value="age", required=false) PetAgeType[] ages, 				// BABY, YOUNG, ADULT, SENIOR
+			@RequestParam(value="age", required=false) AgeType[] ages, 				// BABY, YOUNG, ADULT, SENIOR
 			@RequestParam(value="size", required=false) PetSizeType[] sizes, 			// S, M, L, XL
 			@RequestParam(value="offset", required=false, defaultValue="0") int offset,
 			@RequestParam(value="count", required=false, defaultValue="30") int count) {
@@ -92,7 +92,7 @@ public class PetController {
 		}
 
 
-		ages = ages != null ? ages : new PetAgeType[] { null };
+		ages = ages != null ? ages : new AgeType[] { null };
 		sizes = sizes != null ? sizes : new PetSizeType[] { null};
 		List<PetfinderPetRecordList> petLists = new LinkedList<PetfinderPetRecordList>();
 
@@ -100,8 +100,8 @@ public class PetController {
 		Character sexValue = sex != null ? sex.value().charAt(0) : null;
 		String animalTypeValue = animalType != null ? animalType.value().toLowerCase() : null;
 		for (String breed : breeds) {
-			for (PetAgeType age : ages) {
-				String ageValue = age != null ? age.value() : null;
+			for (AgeType age : ages) {
+				String ageValue = age != null ? age.description : null;
 				for (PetSizeType size : sizes) {
 					String sizeValue = size != null ? size.value() : null;
 					petLists.add(petFinderService.findPet(animalTypeValue, breed, sizeValue, sexValue, location, ageValue, offset, count, "basic", null));
@@ -135,7 +135,7 @@ public class PetController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(PetAgeType.class, new CaseInsensitiveConverter<>(PetAgeType.class));
+		binder.registerCustomEditor(AgeType.class, new CaseInsensitiveConverter<>(AgeType.class));
 		binder.registerCustomEditor(PetGenderType.class, new CaseInsensitiveConverter<>(PetGenderType.class));
 		binder.registerCustomEditor(PetSizeType.class, new CaseInsensitiveConverter<>(PetSizeType.class));
 		binder.registerCustomEditor(AnimalType.class, new AnimalTypeConverter());
