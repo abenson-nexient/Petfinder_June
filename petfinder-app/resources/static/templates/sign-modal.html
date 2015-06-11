@@ -1,0 +1,46 @@
+<!-- User SignIn/SignUp Modal -->
+<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="UserController">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Sign Up or Sign In</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="row">
+      		<div class="col-md-6">
+      			<form class="panel panel-default" name="signIn" ng-submit="signInUser(user)">
+      				
+      				<div class="panel-heading"><h3>Sign In</h3></div>
+      				<div class="panel-body">
+      					<div class="alert alert-danger alert-dismissible fade in" role="alert" ng-hide="isSignInInfoCorrect">
+  								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  								Incorrect username or password.
+								</div>
+	      				<label>Username</label>
+	      				<input type="text" class="form-control" placeholder="Username" ng-model="user.username" required/>
+	      				<label>Password</label>
+	      				<input type="password" class="form-control" placeholder="Password" ng-model="user.password" required/>
+	      				<button type="submit" class="btn btn-primary">Sign In</button>
+	      			</div>
+      			</form>
+      		</div>
+      		<div class="col-md-6">
+      			<form class="panel panel-default" name="signUp">
+      				<div class="panel-heading"><h3>Sign Up</h3></div>
+      				<div class="panel-body">
+	      				<label>Username</label>
+	      				<input type="text" class="form-control" placeholder="Username"/>
+	      				<label>Password</label>
+	      				<input type="password" class="form-control" placeholder="Password"/>
+	      				<label>Confirm Password</label>
+	      				<input type="password" class="form-control" placeholder="Password"/>
+	      				<button type="submit" class="btn btn-success">Sign Up</button>
+	      			</div>
+      			</form>
+      		</div>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>
