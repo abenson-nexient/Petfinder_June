@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nexient.petfinder.web.converters.CaseInsensitiveConverter;
+import com.nexient.petfinder.web.converters.AnimalTypeConverter;
 import com.systemsinmotion.petrescue.entity.AnimalType;
 import com.systemsinmotion.petrescue.web.PetFinderConsumer;
 
@@ -53,6 +53,6 @@ public class MetaController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(AnimalType.class, new CaseInsensitiveConverter<>(AnimalType.class));
+		binder.registerCustomEditor(AnimalType.class, new AnimalTypeConverter());
 	}
 }

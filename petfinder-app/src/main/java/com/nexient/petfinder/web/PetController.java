@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nexient.petfinder.models.Pet;
+import com.nexient.petfinder.web.converters.AnimalTypeConverter;
 import com.nexient.petfinder.web.converters.CaseInsensitiveConverter;
 import com.systemsinmotion.petrescue.entity.AnimalType;
 import com.systemsinmotion.petrescue.web.PetFinderConsumer;
@@ -137,6 +138,6 @@ public class PetController {
 		binder.registerCustomEditor(PetAgeType.class, new CaseInsensitiveConverter<>(PetAgeType.class));
 		binder.registerCustomEditor(PetGenderType.class, new CaseInsensitiveConverter<>(PetGenderType.class));
 		binder.registerCustomEditor(PetSizeType.class, new CaseInsensitiveConverter<>(PetSizeType.class));
-		binder.registerCustomEditor(AnimalType.class, new CaseInsensitiveConverter<>(AnimalType.class));
+		binder.registerCustomEditor(AnimalType.class, new AnimalTypeConverter());
 	}
 }
