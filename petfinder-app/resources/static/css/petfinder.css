@@ -43,8 +43,8 @@
 }
 
 .petDisplay img.lazy {
-  height: 180px;
-  width: 170px;
+  height: 260px;
+  width: 300px;
 }
 /*==============================*/
 
@@ -130,7 +130,7 @@ form[name="petSearch"] select,
 }
 
 .thumbnail {
-  height: 274px;
+  height: 374px;
 }
 
 .thumbnail .caption {

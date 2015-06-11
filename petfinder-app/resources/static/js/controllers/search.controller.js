@@ -19,9 +19,15 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 	});
 
 	$scope.searchPets = function(pet) {
+		pet.count = 200;
 		var query = SearchService.genSearchQuery(pet);
 		$http.get(ServerUrl + '/pet/search?' + query).success(function(response) {		
 			$scope.displayPets = response;
+			$timeout(function() {
+				$("img.lazy").lazyload({
+					effect: "fadeIn"
+				});
+			}, 300);
 		}).error(function(response) {
 			console.log(response);
 		});

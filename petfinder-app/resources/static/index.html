@@ -81,7 +81,7 @@
 	</div>
 	<hr />
 	<div class="row petDisplay" ng-controller="DisplayController">
-		<div class="col-md-2" ng-repeat="pet in displayPets">
+		<div class="col-md-3" ng-repeat="pet in displayPets">
 			<a href="#" class="thumbnail" data-toggle="modal" data-target="#pet-modal" ng-click="getCurrentPet(pet)">
 				<img data-original="{{pet.images[0]}}" alt="Animal Picture" class="lazy">
 				<div class="caption">

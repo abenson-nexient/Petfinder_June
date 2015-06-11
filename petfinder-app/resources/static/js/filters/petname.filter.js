@@ -2,10 +2,15 @@
 
 angular.module('PetFinder').filter('beautify', function() {
 	return function(data) {
-		var regexp = new RegExp(/\s\W+\D+/);
+		var regex = new RegExp(/(\W+|\d+)\w+/g), 
+				nums = new RegExp(/\d+/g), 
+				dot = new RegExp(/\./g), 
+				noWord = new RegExp(/[^\w\s]/g);
 
-		if(regexp.test(data))
-			data = data.replace(regexp, '');
+		data = dot.test(data) ? data.replace(nums, '') : data.replace(regex, '');
+
+		if(noWord.test(data))
+			data = data.replace(noWord, '');
 
 		return data;
 	}
