@@ -17,14 +17,14 @@ public class Pet {
 	public static Pet fromPetFinderPetRecord(PetfinderPetRecord petRecord) {
 		if (petRecord == null)
 			throw new IllegalArgumentException("petRecord must not be null.");
-		
+
 		Pet toReturn = new Pet();
-		
+
 		toReturn.id = petRecord.getId();
 		toReturn.name = petRecord.getName();
 		toReturn.mix = petRecord.getMix();
 		toReturn.description = petRecord.getDescription();
-		
+
 		toReturn.breeds = PetFinderTypes.displayString(petRecord.getBreeds());
 		toReturn.images = PetFinderTypes.displayString(petRecord.getMedia());
 
@@ -34,7 +34,7 @@ public class Pet {
 		toReturn.status = PetFinderTypes.displayString(petRecord.getStatus());
 		toReturn.size = PetFinderTypes.displayString(petRecord.getSize());
 		toReturn.contact = PetFinderTypes.displayString(petRecord.getContact());
-		
+
 		return toReturn;
 	}
 
@@ -45,7 +45,7 @@ public class Pet {
 	public void setImages(String[] images) {
 		this.images = images;
 	}
-	
+
 	public String[] getBreeds() {
 		return breeds;
 	}
@@ -53,7 +53,7 @@ public class Pet {
 	public void setBreeds(String[] breeds) {
 		this.breeds = breeds;
 	}
-	
+
 	public BigInteger getId() {
 		return id;
 	}

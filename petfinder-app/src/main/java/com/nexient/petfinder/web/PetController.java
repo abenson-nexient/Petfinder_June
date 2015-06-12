@@ -2,7 +2,6 @@ package com.nexient.petfinder.web;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.petfinder.entity.PetfinderBreedList;
 import org.petfinder.entity.PetfinderPetRecord;
 import org.petfinder.entity.PetfinderPetRecordList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,15 +62,15 @@ public class PetController {
 		if (location == null || location.isEmpty())
 			throw new IllegalArgumentException("The 'location' parameter must not be empty.");
 
-		if (breedParameters == null)
+		if (breedParameters == null) {
 			breedParameters = new String[0];
-		
+		}
+
 		List<String> breedParametersList = Arrays.asList(breedParameters);
 		breedParametersList.replaceAll(breed -> breed.toLowerCase());
-		
+
 		// Validate Breeds
 		if (breedParametersList.size() > 0) {
-			List<String> invalidBreeds = new ArrayList<String>(breedParametersList.size());
 			Set<String> validBreeds;
 			if (animalType != null) {
 				validBreeds = new TreeSet<String>(Arrays.asList(PetFinderTypes.queryValue(petFinderService.breedList(PetFinderTypes.queryValue(animalType), null))));
@@ -85,10 +83,11 @@ public class PetController {
 						.flatMap(Arrays::stream)
 						.collect(Collectors.toCollection(TreeSet::new));
 			}
-			
-			breedParametersList.stream()
-			.filter(breed -> !validBreeds.contains(breed))
-			.forEach(invalidBreeds::add);
+
+			List<String> invalidBreeds = breedParametersList.stream()
+					.filter(breed -> !validBreeds.contains(breed))
+					.collect(Collectors.toList());
+
 			if (invalidBreeds.size() > 0)
 				throw new IllegalArgumentException("Invalid breeds given");
 		} else {
