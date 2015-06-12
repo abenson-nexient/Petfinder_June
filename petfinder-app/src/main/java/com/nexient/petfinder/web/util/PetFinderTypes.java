@@ -1,6 +1,8 @@
 package com.nexient.petfinder.web.util;
 
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import org.petfinder.entity.PetAgeType;
 import org.petfinder.entity.PetContactType;
@@ -31,7 +33,6 @@ import com.systemsinmotion.petrescue.entity.StatusType;
 public class PetFinderTypes {
 
 	private final static String NO_DISPLAY = "?";
-	private final static String NULL = "null";
 	
 	private static AnimalType convert(org.petfinder.entity.AnimalType petAnimalType) {
 		if (petAnimalType == null)
@@ -289,6 +290,51 @@ public class PetFinderTypes {
 		}
 		return queryValue;
 	}
+	
+	private static Stream<String> queryValueCore(PetfinderBreedList petfinderBreedList) {
+		if (petfinderBreedList == null || petfinderBreedList.getBreed() == null)
+			return Stream.empty();
+		
+		return petfinderBreedList.getBreed().stream()
+				.map(breedString -> breedString != null ? breedString.toLowerCase() : null);
+	}
+	
+	public static String[] queryValueStrict(PetfinderBreedList petfinderBreedList) {
+		if (petfinderBreedList == null)
+			throw new IllegalArgumentException("petfinderBreedList must not be null.");
+		
+		String[] toReturn = queryValueCore(petfinderBreedList).toArray(size -> new String[size]);
+		if (Arrays.stream(toReturn).anyMatch(Objects::isNull))
+			throw new IllegalArgumentException("petFinderBreedList contains null values.");
+		
+		return toReturn;
+	}
+	
+	public static String[] queryValueStrictExcludeNulls(PetfinderBreedList petfinderBreedList) {
+		if (petfinderBreedList == null)
+			throw new IllegalArgumentException("petfinderBreedList must not be null.");
+		
+		return queryValueCore(petfinderBreedList)
+				.filter(Objects::nonNull)
+				.toArray(size -> new String[size]);
+	}
+	
+	public static String[] queryValue(PetfinderBreedList petfinderBreedList) {
+		if (petfinderBreedList == null)
+			return new String[0];
+		
+		return queryValueCore(petfinderBreedList)
+				.toArray(size -> new String[size]);
+	}
+	
+	public static String[] queryValueExcludeNulls(PetfinderBreedList petfinderBreedList) {
+		if (petfinderBreedList == null)
+			return new String[0];
+		
+		return queryValueCore(petfinderBreedList)
+				.filter(Objects::nonNull)
+				.toArray(size -> new String[size]);
+	}
 
 	public static String queryValue(PetSizeType petSizeType) {
 		return queryValue(convert(petSizeType));
@@ -296,7 +342,7 @@ public class PetFinderTypes {
 
 	public static String displayString(AnimalType animalType) {
 		if (animalType == null)
-			return NULL;
+			return null;
 		
 		String displayString;
 		switch (animalType) {
@@ -327,7 +373,7 @@ public class PetFinderTypes {
 	
 	public static String displayString(GenderType genderType) {
 		if (genderType == null)
-			return NULL;
+			return null;
 		
 		String displayString;
 		switch (genderType) {
@@ -350,7 +396,7 @@ public class PetFinderTypes {
 	
 	public static String displayString(AgeType ageType) {
 		if (ageType == null)
-			return NULL;
+			return null;
 		
 		String displayString;
 		switch (ageType) {
@@ -379,7 +425,7 @@ public class PetFinderTypes {
 	
 	public static String displayString(SizeType sizeType) {
 		if (sizeType == null)
-			return NULL;
+			return null;
 		
 		String displayString;
 		switch (sizeType) {
@@ -408,7 +454,7 @@ public class PetFinderTypes {
 
 	public static String displayString(StatusType statusType) {
 		if (statusType == null)
-			return NULL;
+			return null;
 		
 		String displayString;
 		switch (statusType) {
@@ -437,24 +483,24 @@ public class PetFinderTypes {
 	
 	public static String displayString(ContactType contact) {
 		if (contact == null)
-			return NULL;
+			return null;
 		
 		if ((contact.getEmail() != null && !contact.getEmail().trim().isEmpty())) {
-			return "Email: " + contact.getEmail().trim();			
+			return "email: " + contact.getEmail().trim().toLowerCase();			
 		} 
 		else if ((contact.getPhone() != null && !contact.getPhone().trim().isEmpty())) {
-			return "Phone: " + contact.getPhone().trim();
+			return "phone: " + contact.getPhone().trim().toLowerCase();
 		}
 		else if ((contact.getName() != null && !contact.getName().trim().isEmpty()) 
 				&& (contact.getAddress1() != null && !contact.getAddress1().trim().isEmpty()) 
 				&& (contact.getState() != null && !contact.getState().trim().isEmpty()) 
 				&& (contact.getZip() != null && !contact.getZip().trim().isEmpty())) {
-			String toReturn = "Address: ";
-			toReturn += contact.getAddress1().trim();
+			String toReturn = "address: ";
+			toReturn += contact.getAddress1().trim().toLowerCase();
 			if (contact.getAddress2() != null && !contact.getAddress1().trim().isEmpty())
-				toReturn += " " + contact.getAddress2().trim();
-			toReturn += ", " + contact.getState().trim();
-			toReturn += " " + contact.getZip().trim();
+				toReturn += " " + contact.getAddress2().trim().toLowerCase();
+			toReturn += ", " + contact.getState().trim().toLowerCase();
+			toReturn += " " + contact.getZip().trim().toLowerCase();
 			return toReturn;
 		} 
 		else if (contact.getFax() != null && !contact.getFax().trim().isEmpty())

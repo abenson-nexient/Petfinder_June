@@ -1,9 +1,7 @@
 package com.nexient.petfinder.web;
 
 import java.util.Arrays;
-import java.util.Objects;
 
-import org.petfinder.entity.PetfinderBreedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -27,21 +25,14 @@ public class MetaController {
 	public String[] getBreeds(@RequestParam(value="animal", required=false) AnimalType animalType) {
 		String[] breeds;
 		if (animalType != null) {
-			PetfinderBreedList pfbl = petFinderService.breedList(PetFinderTypes.queryValueStrict(animalType), "xml");
-			if (pfbl == null) {
-				breeds = new String[] {};
-			} else {
-				breeds = pfbl.getBreed().stream().toArray(size -> new String[size]);
-			}
+			breeds = PetFinderTypes.queryValueExcludeNulls(petFinderService.breedList(PetFinderTypes.queryValueStrict(animalType), "xml"));
 		} else {
 			breeds = Arrays.stream(AnimalType.values())
 					.map(type -> PetFinderTypes.queryValueStrict(type))
 					.parallel()
 					.map(typeString -> petFinderService.breedList(typeString, "xml"))
-					.filter(Objects::nonNull)
-					.map(breedList -> breedList.getBreed())
-					.flatMap(list -> list.stream())
-					.map(breed -> breed.toLowerCase())
+					.map(PetFinderTypes::queryValueExcludeNulls)
+					.flatMap(breedArray -> Arrays.stream(breedArray))
 					.toArray(size -> new String[size]);
 		}
 		return breeds;
