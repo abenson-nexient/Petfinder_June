@@ -5,13 +5,9 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 	$scope.ageOptions = ['Baby', 'Young', 'Adult', 'Senior'];
 	$scope.sexOptions = ['Male', 'Female', 'Unknown'];
 
-	$http.get(ServerUrl + '/pet/search?location=MI').success(function(response){	
+	$http.get(ServerUrl + '/pet/search?location=MI').success(function(response) {	
 		$scope.displayPets = response;
-		$timeout(function() {
-			$("img.lazy").lazyload({
-				effect: "fadeIn"
-			});
-		}, 300);
+		lazyLoadImg();
 	});
 
 	$http.get(ServerUrl + '/meta/animals').success(function(response) {
@@ -23,18 +19,14 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 		var query = SearchService.genSearchQuery(pet);
 		$http.get(ServerUrl + '/pet/search?' + query).success(function(response) {		
 			$scope.displayPets = response;
-			$timeout(function() {
-				$("img.lazy").lazyload({
-					effect: "fadeIn"
-				});
-			}, 300);
+			lazyLoadImg();
 		}).error(function(response) {
 			console.log(response);
 		});
 	};
 
 	$scope.getRandomPet = function() {
-		$http.get(ServerUrl + '/pet/random').success(function(response){		
+		$http.get(ServerUrl + '/pet/random').success(function(response) {		
 			StoreService.storeVal(response[0]);
 		});
 	};
@@ -45,6 +37,14 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 		$http.get(ServerUrl + '/meta/breeds?animal=' + selectedAnimalType).success(function(response) {
 			$scope.selectedAnimalBreeds = response;
 		});
+	};
+
+	function lazyLoadImg() {
+		$timeout(function() {
+			$("img.lazy").lazyload({
+				effect: "fadeIn"
+			});
+		}, 300);
 	};
 
 });
