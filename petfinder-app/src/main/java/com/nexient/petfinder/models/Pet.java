@@ -2,11 +2,11 @@ package com.nexient.petfinder.models;
 
 
 import java.math.BigInteger;
-import java.util.Objects;
 
 import org.petfinder.entity.PetfinderPetRecord;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.nexient.petfinder.web.util.PetFinderTypes;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Pet {
@@ -14,46 +14,27 @@ public class Pet {
 	private String name, animal, age, sex, status, size, mix, description, contact ;
 	private BigInteger id;
 
-	public static Pet fromPetFinderPetRecord(PetfinderPetRecord record) {
+	public static Pet fromPetFinderPetRecord(PetfinderPetRecord petRecord) {
+		if (petRecord == null)
+			throw new IllegalArgumentException("petRecord must not be null.");
+		
 		Pet toReturn = new Pet();
-		toReturn.breeds = record.getBreeds().getBreed().stream().toArray((int size) -> new String[size]);
-		if (record.getMedia().getPhotos() == null) {
-			toReturn.images = new String[0];
-		} else {
-			toReturn.images = record.getMedia().getPhotos().getPhoto().stream()
-					.filter(Objects::nonNull)
-					.filter((ppt) -> ppt.getSize().equals("x"))
-					.map((ppt) -> ppt.getValue())
-					.toArray((int size) -> new String[size]);			
-		}
-		toReturn.id = record.getId();
-		toReturn.name = record.getName();
-		toReturn.mix = record.getMix();
-		toReturn.description = record.getDescription();
-		if (record.getAnimal() == null || record.getAnimal().value() == null)
-			toReturn.animal = "?";
-		else
-			toReturn.animal = record.getAnimal().value();
-		if (record.getAnimal() == null || record.getAnimal().value() == null)
-			toReturn.animal = "?";
-		else
-			toReturn.animal = record.getAnimal().value();
-		if (record.getSex() == null || record.getSex().getDescription() == null)
-			toReturn.sex = "?";
-		else
-			toReturn.sex = record.getSex().getDescription();
-		if (record.getStatus() == null || record.getStatus().value() == null)
-			toReturn.status = "?";
-		else
-			toReturn.status = record.getStatus().value();
-		if (record.getSize() == null || record.getSize().getDescription() == null)
-			toReturn.size = "?";
-		else
-			toReturn.size = record.getSize().getDescription();
-		if (record.getContact() == null || record.getContact().getEmail() == null)
-			toReturn.contact = "?";
-		else
-			toReturn.contact = record.getContact().getEmail();
+		
+		toReturn.id = petRecord.getId();
+		toReturn.name = petRecord.getName();
+		toReturn.mix = petRecord.getMix();
+		toReturn.description = petRecord.getDescription();
+		
+		toReturn.breeds = PetFinderTypes.displayString(petRecord.getBreeds());
+		toReturn.images = PetFinderTypes.displayString(petRecord.getMedia());
+
+		toReturn.animal = PetFinderTypes.displayString(petRecord.getAnimal());
+		toReturn.age = PetFinderTypes.displayString(petRecord.getAge());
+		toReturn.sex = PetFinderTypes.displayString(petRecord.getSex());
+		toReturn.status = PetFinderTypes.displayString(petRecord.getStatus());
+		toReturn.size = PetFinderTypes.displayString(petRecord.getSize());
+		toReturn.contact = PetFinderTypes.displayString(petRecord.getContact());
+		
 		return toReturn;
 	}
 
