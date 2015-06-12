@@ -162,15 +162,12 @@ public class PetFinderTypes {
 	public static String queryValue(AnimalType animalType) {
 		if (animalType == null)
 			return null;
-
-		String queryValue;
+		
 		switch (animalType) {
 		case SMALL_FURRY:
-			queryValue = "smallfurry";
-			break;
+			return "smallfurry";
 		case BARN_YARD:
-			queryValue = "barnyard";
-			break;
+			return "barnyard";
 		case BIRD:
 		case CAT:
 		case DOG:
@@ -178,13 +175,10 @@ public class PetFinderTypes {
 		case RABBIT:
 		case HORSE:
 		case REPTILE:
-			queryValue = animalType.name().toLowerCase();
-			break;
+			return animalType.name().toLowerCase();
 		default:
-			queryValue = animalType.value();
-			break;
+			return animalType.value();
 		}
-		return queryValue;
 	}
 
 	public static String queryValue(org.petfinder.entity.AnimalType animalType) {
@@ -206,22 +200,14 @@ public class PetFinderTypes {
 		if (genderType == null)
 			return null;
 		
-		Character queryValue;
-		switch (genderType) {
-		case F:
-			queryValue = Character.valueOf('F');
-			break;
-		case M:
-			queryValue = Character.valueOf('M');
-			break;
-		default:
-			if (genderType.description.length() > 0)
-				queryValue = genderType.description.toUpperCase().charAt(0);
-			else
-				queryValue = genderType.name().charAt(0);
-			break;
-		}
-		return queryValue;
+		if (genderType == GenderType.F)
+			return Character.valueOf('F');
+		else if (genderType == GenderType.M)
+			return Character.valueOf('M');
+		else if (genderType.description.length() > 0)
+			return genderType.description.toUpperCase().charAt(0);
+		else
+			return genderType.name().charAt(0);
 	}
 
 	public static Character queryValue(PetGenderType petGenderType) {
@@ -242,22 +228,18 @@ public class PetFinderTypes {
 		if (ageType == null)
 			return null;
 		
-		String queryValue;
 		switch (ageType) {
 		case ADULT:
-			queryValue = "Adult";
+			return "Adult";
 		case BABY:
-			queryValue = "Baby";
+			return "Baby";
 		case SENIOR:
-			queryValue = "Senior";
+			return "Senior";
 		case YOUNG:
-			queryValue = "Young";
-			break;
+			return "Young";
 		default:
-			queryValue = ageType.description;
-			break;
+			return ageType.description;
 		}
-		return queryValue;
 	}
 
 	public static String queryValue(PetAgeType petAgeType) {
@@ -278,17 +260,7 @@ public class PetFinderTypes {
 		if (sizeType == null)
 			return null;
 		
-		String queryValue;
-		switch (sizeType) {
-		case S:
-		case M:
-		case L:
-		case XL:
-		default:
-			queryValue = sizeType.name();
-			break;
-		}
-		return queryValue;
+		return sizeType.name();
 	}
 	
 	private static Stream<String> queryValueCore(PetfinderBreedList petfinderBreedList) {
@@ -344,13 +316,11 @@ public class PetFinderTypes {
 		if (animalType == null)
 			return null;
 		
-		String displayString;
 		switch (animalType) {
 		case BARN_YARD:
-			displayString = "Barn Yard";
-			break;
+			return "Barn Yard";
 		case SMALL_FURRY:
-			displayString = "Small & Furry";
+			return "Small & Furry";
 		case BIRD:
 		case CAT:
 		case DOG:
@@ -358,13 +328,10 @@ public class PetFinderTypes {
 		case PIG:
 		case RABBIT:
 		case REPTILE:
-			displayString = animalType.name().substring(0,1).toUpperCase() + animalType.name().substring(1).toLowerCase();
-			break;
+			return animalType.name().substring(0,1).toUpperCase() + animalType.name().substring(1).toLowerCase();
 		default:
-			displayString = "?";
-			break;
+			return NO_DISPLAY;
 		}
-		return displayString;
 	}
 
 	public static String displayString(org.petfinder.entity.AnimalType petAnimalType) {
@@ -375,19 +342,14 @@ public class PetFinderTypes {
 		if (genderType == null)
 			return null;
 		
-		String displayString;
 		switch (genderType) {
 		case F:
-			displayString = "Female";
-			break;
+			return "Female";
 		case M:
-			displayString = "Male";
-			break;
+			return "Male";
 		default:
-			displayString = genderType.description;
-			break;
+			return genderType.description;
 		}
-		return displayString;
 	}
 
 	public static String displayString(PetGenderType petGenderType) {
@@ -398,25 +360,18 @@ public class PetFinderTypes {
 		if (ageType == null)
 			return null;
 		
-		String displayString;
 		switch (ageType) {
 		case ADULT:
-			displayString = "Adult";
-			break;
+			return "Adult";
 		case BABY:
-			displayString = "Baby";
-			break;
+			return "Baby";
 		case SENIOR:
-			displayString = "Senior";
-			break;
+			return "Senior";
 		case YOUNG:
-			displayString = "Young";
-			break;
+			return "Young";
 		default:
-			displayString = ageType.description;
-			break;
+			return ageType.description;
 		}
-		return displayString;
 	}
 
 	public static String displayString(PetAgeType petAgeType) {
@@ -427,25 +382,18 @@ public class PetFinderTypes {
 		if (sizeType == null)
 			return null;
 		
-		String displayString;
 		switch (sizeType) {
 		case S:
-			displayString = "Small";
-			break;
+			return "Small";
 		case M:
-			displayString = "Medium";
-			break;
+			return "Medium";
 		case L:
-			displayString = "Large";
-			break;
+			return "Large";
 		case XL:
-			displayString = "Extra Large";
-			break;
+			return "Extra Large";
 		default:
-			displayString = sizeType.description;
-			break;
+			return sizeType.description;
 		}
-		return displayString;
 	}
 
 	public static String displayString(PetSizeType petSizeType) {
@@ -456,25 +404,18 @@ public class PetFinderTypes {
 		if (statusType == null)
 			return null;
 		
-		String displayString;
 		switch (statusType) {
 		case A:
-			displayString = "Adoptable";
-			break;
+			return "Adoptable";
 		case H:
-			displayString = "Hold";
-			break;
+			return "Hold";
 		case P:
-			displayString = "Pending";
-			break;
+			return "Pending";
 		case X:
-			displayString = "Adopted";
-			break;
+			return "Adopted";
 		default:
-			displayString = statusType.description;
-			break;
+			return statusType.description;
 		}
-		return displayString;
 	}
 
 	public static String displayString(PetStatusType petStatusType) {
