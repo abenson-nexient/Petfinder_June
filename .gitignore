@@ -22,6 +22,7 @@ petfinder-app/.settings/
 
 # Ignore front end deps.
 petfinder-app/resources/static/node_modules
+petfinder-app/resources/static/bower_components
 
 # Ignore editor buffers etc.
 *.swp
