@@ -1,13 +1,12 @@
 'use strict';
 
-angular.module('PetFinder').controller('SearchController', function($scope, $http, StoreService, ServerUrl, SearchService, $timeout) {
+angular.module('PetFinder').controller('SearchController', function($scope, $http, StoreService, ServerUrl, SearchService) {
 
 	$scope.ageOptions = ['Baby', 'Young', 'Adult', 'Senior'];
 	$scope.sexOptions = ['Male', 'Female', 'Unknown'];
 
 	$http.get(ServerUrl + '/pet/search?location=MI').success(function(response) {	
 		$scope.displayPets = response;
-		lazyLoadImg();
 	});
 
 	$http.get(ServerUrl + '/meta/animals').success(function(response) {
@@ -19,7 +18,6 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 		var query = SearchService.genSearchQuery(pet);
 		$http.get(ServerUrl + '/pet/search?' + query).success(function(response) {		
 			$scope.displayPets = response;
-			lazyLoadImg();
 		}).error(function(response) {
 			console.log(response);
 		});
@@ -38,13 +36,4 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 			$scope.selectedAnimalBreeds = response;
 		});
 	};
-
-	function lazyLoadImg() {
-		$timeout(function() {
-			$("img.lazy").lazyload({
-				effect: "fadeIn"
-			});
-		}, 300);
-	};
-
 });
