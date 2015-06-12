@@ -2,10 +2,12 @@ package com.nexient.petfinder.web;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -52,7 +54,7 @@ public class PetController {
 	@RequestMapping("/search")
 	public Pet[] searchPets(@RequestParam("location") String location,
 			@RequestParam(value="animal", required=false) AnimalType animalType,
-			@RequestParam(value="breed", required=false) String[] breeds,
+			@RequestParam(value="breed", required=false) String[] breedParameters,
 			@RequestParam(value="sex", required=false) GenderType genderType,
 			@RequestParam(value="age", required=false) AgeType[] ageTypes,
 			@RequestParam(value="size", required=false) SizeType[] sizeTypes,
@@ -62,36 +64,35 @@ public class PetController {
 		if (location == null || location.isEmpty())
 			throw new IllegalArgumentException("The 'location' parameter must not be empty.");
 
+		if (breedParameters == null)
+			breedParameters = new String[0];
+		
+		List<String> breedParametersList = Arrays.asList(breedParameters);
+		breedParametersList.replaceAll(breed -> breed.toLowerCase());
+		
 		// Validate Breeds
-		if (breeds != null && breeds.length > 0) {
-			boolean breedsAreValid;
-			List<String> breedsAsList = Arrays.asList(breeds);
-			breedsAsList.replaceAll(breed -> breed.toLowerCase());
+		if (breedParametersList.size() > 0) {
+			List<String> invalidBreeds = new ArrayList<String>(breedParametersList.size());
+			Set<String> validBreeds;
 			if (animalType != null) {
-				PetfinderBreedList breedListContainer = petFinderService.breedList(PetFinderTypes.queryValue(animalType), null);
-				if (breedListContainer == null) {
-					breedsAreValid = false;
-				} else {
-					List<String> breedList = petFinderService.breedList(PetFinderTypes.queryValue(animalType), null).getBreed();
-					breedList.replaceAll(breed -> breed.toLowerCase());
-					breedsAreValid = breedList.containsAll(breedsAsList);
-				}
+				validBreeds = new TreeSet<String>(Arrays.asList(PetFinderTypes.queryValue(petFinderService.breedList(PetFinderTypes.queryValue(animalType), null))));
+
 			} else {
-				breedsAreValid = Arrays.stream(AnimalType.values())
+				validBreeds = Arrays.stream(AnimalType.values())
 						.map(type -> PetFinderTypes.queryValueStrict(type))
-						.parallel()
 						.map(typeString -> petFinderService.breedList(typeString, null))
-						.filter(Objects::nonNull)
-						.map(breedList -> breedList.getBreed())
-						.flatMap(list -> list.stream())
-						.map(breed -> breed.toLowerCase())
-						.collect(Collectors.toCollection(TreeSet::new))
-						.containsAll(breedsAsList);
+						.map(PetFinderTypes::queryValue)
+						.flatMap(Arrays::stream)
+						.collect(Collectors.toCollection(TreeSet::new));
 			}
-			if (!breedsAreValid)
-				throw new IllegalArgumentException("Invalid breeds given.");
+			
+			breedParametersList.stream()
+			.filter(breed -> !validBreeds.contains(breed))
+			.forEach(invalidBreeds::add);
+			if (invalidBreeds.size() > 0)
+				throw new IllegalArgumentException("Invalid breeds given");
 		} else {
-			breeds = new String[] { null };
+			breedParameters = new String[] { null };
 		}
 
 
@@ -102,7 +103,7 @@ public class PetController {
 
 		Character genderTypeChar = PetFinderTypes.queryValue(genderType);
 		String animalTypeString = PetFinderTypes.queryValue(animalType);
-		for (String breed : breeds) {
+		for (String breed : breedParameters) {
 			for (AgeType ageType : ageTypes) {
 				String ageTypeString = PetFinderTypes.queryValue(ageType);
 				for (SizeType size : sizeTypes) {
