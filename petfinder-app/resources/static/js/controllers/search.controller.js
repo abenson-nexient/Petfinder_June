@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('PetFinder').controller('SearchController', function($scope, $http, StoreService, ServerUrl, SearchService) {
+angular.module('PetFinder').controller('SearchController', ['$scope', '$http', 'StoreService', 'ServerUrl', 'SearchService', function($scope, $http, StoreService, ServerUrl, SearchService) {
 
 	$scope.ageOptions = ['Baby', 'Young', 'Adult', 'Senior'];
 	$scope.sexOptions = ['Male', 'Female', 'Unknown'];
@@ -31,9 +31,9 @@ angular.module('PetFinder').controller('SearchController', function($scope, $htt
 
 	$scope.getBreeds = function(event) {
 		if(event.target.value === '') return;
-		var selectedAnimalType = $scope.animalTypes[event.target.value];
+		var selectedAnimalType = event.target.value.split(':')[1];
 		$http.get(ServerUrl + '/meta/breeds?animal=' + selectedAnimalType).success(function(response) {
 			$scope.selectedAnimalBreeds = response;
 		});
 	};
-});
+}]);

@@ -15,11 +15,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        '../bower_components/jquery/dist/jquery.min.js',
         '../bower_components/angular/angular.min.js',
-        '../js/*.js',
-        '../js/**/*js',
-        'unit/*.js'
+        '../bower_components/angular-mocks/angular-mocks.js',
+        '../js/main.js',
+        '../js/controllers/search.controller.js',
+        'unit/specs.js'
     ],
 
 
@@ -55,6 +55,7 @@ module.exports = function(config) {
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
+
 
 
 
