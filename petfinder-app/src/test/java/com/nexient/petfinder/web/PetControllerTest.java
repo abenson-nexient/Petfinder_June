@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.math.BigInteger;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +23,10 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nexient.petfinder.Application;
+import com.nexient.petfinder.models.Pet;
+import com.systemsinmotion.petrescue.web.PetFinderConsumer;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -30,6 +35,12 @@ public class PetControllerTest {
 
 	@Autowired
 	private WebApplicationContext wac;
+
+	@Autowired
+	private PetFinderConsumer petFinderService;
+	
+	@Autowired
+	private ObjectMapper mapper;
 
 	private MockMvc mockMvc;
 
@@ -71,10 +82,18 @@ public class PetControllerTest {
 
 	@Test
 	public void testGetPetById() throws Exception {
-		int id = 32296622;
-		mockMvc.perform(get("/pet/" + id).accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
-		.andExpect(status().isOk())
-		.andExpect(content().contentType("application/json;charset=UTF-8"));
+		int ids[] = new int[] { 32296622, 32287134, 31565804, 26611061 };
+
+		for (int id : ids) {
+			Pet pet = Pet.fromPetFinderPetRecord(petFinderService.readPet(BigInteger.valueOf(id), null));
+			String petStr = mapper.writeValueAsString(new Pet[] { pet });
+			
+			mockMvc.perform(get("/pet/" + id).accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType("application/json;charset=UTF-8"))
+			.andExpect(content().json(petStr));			
+		}
+		
 	}
 
 	/**
