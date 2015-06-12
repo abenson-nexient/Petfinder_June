@@ -21,7 +21,7 @@ public class MetaController {
 	@Autowired
 	private PetFinderConsumer petFinderService;
 
-	@RequestMapping({"/breeds", "/breeds/"})
+	@RequestMapping("/breeds")
 	public String[] getBreeds(@RequestParam(value="animal", required=false) AnimalType animalType) {
 		String[] breeds;
 		if (animalType != null) {
@@ -38,7 +38,7 @@ public class MetaController {
 		return breeds;
 	}
 
-	@RequestMapping({"/animals", "/animals/"})
+	@RequestMapping("/animals")
 	public String[] getAnimalTypes() {
 		return Arrays.stream(AnimalType.values())
 				.map(animalType -> PetFinderTypes.queryValue(animalType))
