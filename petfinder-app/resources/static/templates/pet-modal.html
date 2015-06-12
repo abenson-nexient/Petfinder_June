@@ -19,7 +19,7 @@
 	        	<li><strong>Sex: </strong>{{currentPet.sex}}</li>
 	        	<li><strong>Status: </strong>{{currentPet.status}}</li>
 	        	<li><strong>Size: </strong>{{currentPet.size}}</li>
-	        	<li><strong>Breed: </strong>{{displayBreedInfo(currentPet.breeds)}}</li>
+	        	<li><strong>Breed: </strong>{{currentPet.breeds | beautifyBreeds}}</li>
 	        	<li><strong>Mix: </strong>{{currentPet.mix}}</li>
 	        </ul>
       	</div>

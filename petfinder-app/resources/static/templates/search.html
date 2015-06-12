@@ -38,6 +38,12 @@
 				<img data-original="{{pet.images[0]}}" alt="Animal Picture" class="lazy">
 				<div class="caption">
 					<h3>{{pet.name | beautify}}</h3>
+					<ul>
+						<li>{{pet.breeds | beautifyBreeds}}</li>
+						<li>{{pet.age}}</li>
+						<li>{{pet.sex}}</li>
+						<li>{{pet.size}}</li>
+					</ul>
 				</div>
 			</a>
 		</div>
