@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
@@ -85,6 +86,16 @@ public class MetaControllerTest {
 
 	@Test
 	public void testGetAnimalTypes() throws Exception {
+		Set<String> trueAnimalTypes = Arrays.stream(AnimalType.values())
+				.map(PetFinderTypes::queryValue)
+				.collect(Collectors.toCollection(HashSet::new));
+
+		mockMvc.perform(get("/meta/animals")
+				.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$").isArray())
+				.andExpect(jsonPath("$[*]", everyItem(isA(String.class))))
+				.andExpect(jsonPath("$[*]", everyItem(isIn(trueAnimalTypes))));
 	}
 
 	private Set<String> getBreedsDirectly(String[] animalTypes) {
