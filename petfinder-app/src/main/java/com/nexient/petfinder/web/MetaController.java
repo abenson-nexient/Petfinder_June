@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nexient.petfinder.web.converters.AnimalTypeConverter;
 import com.nexient.petfinder.web.util.PetFinderTypes;
+import com.systemsinmotion.petrescue.entity.AgeType;
 import com.systemsinmotion.petrescue.entity.AnimalType;
+import com.systemsinmotion.petrescue.entity.GenderType;
+import com.systemsinmotion.petrescue.entity.SizeType;
 import com.systemsinmotion.petrescue.web.PetFinderConsumer;
 
 @RestController
@@ -42,6 +45,28 @@ public class MetaController {
 	public String[] getAnimalTypes() {
 		return Arrays.stream(AnimalType.values())
 				.map(PetFinderTypes::queryValueStrict)
+				.toArray(size -> new String[size]);
+	}
+
+	@RequestMapping("/ages")
+	public String[] getAgeTypes() {
+		return Arrays.stream(AgeType.values())
+				.map(PetFinderTypes::queryValueStrict)
+				.toArray(size -> new String[size]);
+	}
+
+	@RequestMapping("/sizes")
+	public String[] getSizeTypes() {
+		return Arrays.stream(SizeType.values())
+				.map(PetFinderTypes::queryValueStrict)
+				.toArray(size -> new String[size]);
+	}
+
+	@RequestMapping("/genders")
+	public String[] getGenderTypes() {
+		return Arrays.stream(GenderType.values())
+				.map(PetFinderTypes::queryValueStrict)
+				.map(String::valueOf)
 				.toArray(size -> new String[size]);
 	}
 

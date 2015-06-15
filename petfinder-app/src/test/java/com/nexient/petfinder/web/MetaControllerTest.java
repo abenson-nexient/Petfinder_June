@@ -29,7 +29,10 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.nexient.petfinder.Application;
 import com.nexient.petfinder.web.util.PetFinderTypes;
+import com.systemsinmotion.petrescue.entity.AgeType;
 import com.systemsinmotion.petrescue.entity.AnimalType;
+import com.systemsinmotion.petrescue.entity.GenderType;
+import com.systemsinmotion.petrescue.entity.SizeType;
 import com.systemsinmotion.petrescue.web.PetFinderConsumer;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -96,6 +99,49 @@ public class MetaControllerTest {
 				.andExpect(jsonPath("$").isArray())
 				.andExpect(jsonPath("$[*]", everyItem(isA(String.class))))
 				.andExpect(jsonPath("$[*]", everyItem(isIn(trueAnimalTypes))));
+	}
+
+	@Test
+	public void testGetAgeTypes() throws Exception {
+		Set<String> trueAgeTypes = Arrays.stream(AgeType.values())
+				.map(PetFinderTypes::queryValue)
+				.collect(Collectors.toCollection(HashSet::new));
+
+		mockMvc.perform(get("/meta/ages")
+				.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$").isArray())
+				.andExpect(jsonPath("$[*]", everyItem(isA(String.class))))
+				.andExpect(jsonPath("$[*]", everyItem(isIn(trueAgeTypes))));
+	}
+
+	@Test
+	public void testGetGenderTypes() throws Exception {
+		Set<String> trueGenderTypes = Arrays.stream(GenderType.values())
+				.map(PetFinderTypes::queryValue)
+				.map(String::valueOf)
+				.collect(Collectors.toCollection(HashSet::new));
+
+		mockMvc.perform(get("/meta/genders")
+				.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$").isArray())
+				.andExpect(jsonPath("$[*]", everyItem(isA(String.class))))
+				.andExpect(jsonPath("$[*]", everyItem(isIn(trueGenderTypes))));
+	}
+
+	@Test
+	public void testGetSizeTypes() throws Exception {
+		Set<String> trueSizeTypes = Arrays.stream(SizeType.values())
+				.map(PetFinderTypes::queryValue)
+				.collect(Collectors.toCollection(HashSet::new));
+
+		mockMvc.perform(get("/meta/sizes")
+				.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$").isArray())
+				.andExpect(jsonPath("$[*]", everyItem(isA(String.class))))
+				.andExpect(jsonPath("$[*]", everyItem(isIn(trueSizeTypes))));
 	}
 
 	private Set<String> getBreedsDirectly(String[] animalTypes) {
