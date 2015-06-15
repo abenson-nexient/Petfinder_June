@@ -3,11 +3,14 @@ package com.nexient.petfinder;
 import java.util.Arrays;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
-@SpringBootApplication
+@Configuration
+@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 @ComponentScan({"com.systemsinmotion", "com.nexient.petfinder"})
 public class Application {
 
