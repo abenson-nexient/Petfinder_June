@@ -28,7 +28,7 @@ public class MetaController {
 			breeds = PetFinderTypes.queryValueExcludeNulls(petFinderService.breedList(PetFinderTypes.queryValueStrict(animalType), "xml"));
 		} else {
 			breeds = Arrays.stream(AnimalType.values())
-					.map(type -> PetFinderTypes.queryValueStrict(type))
+					.map(PetFinderTypes::queryValueStrict)
 					.parallel()
 					.map(typeString -> petFinderService.breedList(typeString, "xml"))
 					.map(PetFinderTypes::queryValueExcludeNulls)
@@ -41,7 +41,7 @@ public class MetaController {
 	@RequestMapping("/animals")
 	public String[] getAnimalTypes() {
 		return Arrays.stream(AnimalType.values())
-				.map(animalType -> PetFinderTypes.queryValue(animalType))
+				.map(PetFinderTypes::queryValueStrict)
 				.toArray(size -> new String[size]);
 	}
 
