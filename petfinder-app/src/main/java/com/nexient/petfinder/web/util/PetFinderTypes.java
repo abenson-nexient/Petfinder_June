@@ -59,7 +59,7 @@ public class PetFinderTypes {
 			return AnimalType.SMALL_FURRY;
 		default:
 			try {
-				return AnimalType.fromValue(petAnimalType.name());
+				return AnimalType.fromValue(petAnimalType.value());
 			} catch (IllegalArgumentException e) {
 				throw new IllegalArgumentException("No animalType exists corresponding to org.petfinder.entity.AnimalType " + petAnimalType.name() +".");
 			}
