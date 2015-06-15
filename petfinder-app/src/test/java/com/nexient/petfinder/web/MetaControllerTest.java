@@ -38,7 +38,7 @@ public class MetaControllerTest {
 
 	@Autowired
 	private PetFinderConsumer petFinderService;
-	
+
 	@Autowired
 	private WebApplicationContext wac;
 
@@ -61,10 +61,10 @@ public class MetaControllerTest {
 		.andExpect(jsonPath("$").isArray())
 		.andExpect(jsonPath("$[*]", everyItem(isA(String.class))))
 		.andExpect(jsonPath("$[*]", everyItem(isIn(allbreeds))));
-		
+
 		;
 	}
-	
+
 	@Test
 	public void testGetEachBreed() throws Exception {
 		String[] animalTypes = Arrays.stream(AnimalType.values())
@@ -72,21 +72,21 @@ public class MetaControllerTest {
 				.toArray(size -> new String[size]);
 		for (String animalType : animalTypes) {
 			Set<String> allbreeds = getBreedsDirectly(new String[] {animalType});
-			
+
 			mockMvc.perform(get("/meta/breeds")
 					.param("animal", animalType)
 					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
-            .andExpect(status().isOk())
-    		.andExpect(jsonPath("$").isArray())
-    		.andExpect(jsonPath("$[*]", everyItem(isA(String.class))))
-    		.andExpect(jsonPath("$[*]", everyItem(isIn(allbreeds))));
+					.andExpect(status().isOk())
+					.andExpect(jsonPath("$").isArray())
+					.andExpect(jsonPath("$[*]", everyItem(isA(String.class))))
+					.andExpect(jsonPath("$[*]", everyItem(isIn(allbreeds))));
 		}
 	}
 
 	@Test
 	public void testGetAnimalTypes() throws Exception {
 	}
-	
+
 	private Set<String> getBreedsDirectly(String[] animalTypes) {
 		return Arrays.stream(animalTypes)
 				.parallel()

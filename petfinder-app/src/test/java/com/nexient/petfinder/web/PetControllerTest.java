@@ -38,7 +38,7 @@ public class PetControllerTest {
 
 	@Autowired
 	private PetFinderConsumer petFinderService;
-	
+
 	@Autowired
 	private ObjectMapper mapper;
 
@@ -58,12 +58,12 @@ public class PetControllerTest {
 	@Test
 	public void testGetRandomPet() throws Exception {
 		ResultActions result = mockMvc.perform(get("/pet/random").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
-		.andExpect(status().isOk())
-		.andExpect(content().contentType("application/json;charset=UTF-8"))
-		.andExpect(jsonPath("$").isArray())
-		.andExpect(jsonPath("$", hasSize(1))) // Only difference from testSearchpets.
-		.andExpect(jsonPath("$[*].id", everyItem(isA(Integer.class))));
-		
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json;charset=UTF-8"))
+				.andExpect(jsonPath("$").isArray())
+				.andExpect(jsonPath("$", hasSize(1))) // Only difference from testSearchpets.
+				.andExpect(jsonPath("$[*].id", everyItem(isA(Integer.class))));
+
 		testPetStringFields(result);
 		testPetArrayFields(result);
 	}
@@ -71,11 +71,11 @@ public class PetControllerTest {
 	@Test
 	public void testSearchPets() throws Exception {
 		ResultActions result = mockMvc.perform(get("/pet/search?location=MI").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
-		.andExpect(status().isOk())
-		.andExpect(content().contentType("application/json;charset=UTF-8"))
-		.andExpect(jsonPath("$").isArray())
-		.andExpect(jsonPath("$[*].id", everyItem(isA(Integer.class))));
-		
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json;charset=UTF-8"))
+				.andExpect(jsonPath("$").isArray())
+				.andExpect(jsonPath("$[*].id", everyItem(isA(Integer.class))));
+
 		testPetStringFields(result);
 		testPetArrayFields(result);
 	}
@@ -87,18 +87,18 @@ public class PetControllerTest {
 		for (int id : ids) {
 			Pet pet = Pet.fromPetFinderPetRecord(petFinderService.readPet(BigInteger.valueOf(id), null));
 			String petStr = mapper.writeValueAsString(new Pet[] { pet });
-			
+
 			mockMvc.perform(get("/pet/" + id).accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType("application/json;charset=UTF-8"))
-			.andExpect(content().json(petStr));			
+			.andExpect(content().json(petStr));
 		}
-		
+
 	}
 
 	/**
 	 * Insure that all fields of a pet object array that should be arrays of Strings are in fact arrays of Strings.
-	 * @param result The result of a get request that should have returned an array of pet objects. 
+	 * @param result The result of a get request that should have returned an array of pet objects.
 	 * @throws Exception result.andExpect can throw undefined exceptions.
 	 */
 	private void testPetArrayFields(ResultActions result) throws Exception {
@@ -110,17 +110,18 @@ public class PetControllerTest {
 			result.andExpect(jsonPath(arrayFieldItems, name).value(everyItem(isA(String.class))));
 		}
 	}
-	
+
 	/**
 	 * Insure that all fields of a pet object array that should be Strings are in fact Strings.
-	 * @param result The result of a get request that should have returned an array of pet objects. 
+	 * @param result The result of a get request that should have returned an array of pet objects.
 	 * @throws Exception result.andExpect can throw undefined exceptions.
 	 */
 	private void testPetStringFields(ResultActions result) throws Exception {
 		String stringField = "$[*]['%s']";
 		String[] fields = new String[] { "name", "animal", "age", "sex", "status", "size", "mix", "description", "contact" };
-		for (String name : fields)
+		for (String name : fields) {
 			result.andExpect(jsonPath(stringField, name).value(everyItem(isA(String.class))));
+		}
 	}
 
 }
