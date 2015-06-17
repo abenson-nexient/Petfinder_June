@@ -1,6 +1,7 @@
 package com.nexient.petfinder.models;
 
 import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
