@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
-@ComponentScan({"com.systemsinmotion", "com.nexient.petfinder"})
+@ComponentScan({"com.systemsinmotion.petrescue.web", "com.nexient.petfinder.config"})
 public class Application {
 
     public static void main(String[] args) {
