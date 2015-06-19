@@ -13,7 +13,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>mvc-dispatcher</servlet-name>
-    <url-pattern>/petfinder</url-pattern>
+    <url-pattern>*</url-pattern>
   </servlet-mapping>
 
   <listener>
