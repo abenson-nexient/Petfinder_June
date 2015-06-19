@@ -8,8 +8,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.nexient.petfinder.web")
-public class AppConfig extends WebMvcConfigurerAdapter {
+@ComponentScan(basePackageClasses = { com.nexient.petfinder.web.PetController.class })
+public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void configureDefaultServletHandling(
