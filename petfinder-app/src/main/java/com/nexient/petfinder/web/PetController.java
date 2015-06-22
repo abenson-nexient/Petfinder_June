@@ -43,13 +43,13 @@ public class PetController {
 	@Autowired
 	private PetFinderConsumer petFinderService;
 
-	@RequestMapping("/random")
+	@RequestMapping(value="/random", produces="application/json")
 	public PetDto[] getRandomPet() {
 		return new PetDto[] { PetDto.fromPetFinderPetRecord(petFinderService
 				.randomPet(null, null, null, null, null, null, "full", null)) };
 	}
 
-	@RequestMapping("/search")
+	@RequestMapping(value="/search", produces="application/json")
 	public PetDto[] searchPets(
 			@RequestParam("location") String location,
 			@RequestParam(value = "animal", required = false) AnimalType animalType,
@@ -129,7 +129,7 @@ public class PetController {
 				.toArray(size -> new PetDto[size]);
 	}
 
-	@RequestMapping("/{id}")
+	@RequestMapping(value="/{id}", produces="application/json")
 	public PetDto[] getPetById(@PathVariable BigInteger id) {
 		PetfinderPetRecord ppr = petFinderService.readPet(id, "xml");
 		if (ppr == null)

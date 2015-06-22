@@ -19,4 +19,9 @@ public class PetfinderWebAppInitializer extends
 	protected Class<?>[] getServletConfigClasses() {
 		return new Class<?>[] { WebConfig.class };
 	}
+	
+	@Override
+	protected String getServletName() {
+		return "Petfinder";
+	}
 }
