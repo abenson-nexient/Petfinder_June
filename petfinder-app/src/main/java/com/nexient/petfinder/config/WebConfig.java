@@ -19,7 +19,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		configurer.enable();
 	}
 
-
 	@Bean
 	public PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
 		return new PropertySourcesPlaceholderConfigurer();
