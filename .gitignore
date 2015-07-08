@@ -18,4 +18,5 @@ hs_err_pid*
 
 #petfinder
 petfinder-app/target/*
+!petfinder-app/target/petfinder/*
 petfinder-app/bin/*
