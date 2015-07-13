@@ -1,8 +1,9 @@
-package com.nexient.petfinder.config;
+package com.nexient.petfinder.config.bak;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-import com.nexient.petfinder.config.RootConfig;
+
 import com.nexient.petfinder.config.WebConfig;
+import com.nexient.petfinder.config.bak.RootConfig;
 
 public class PetfinderWebAppInitializer extends
 		AbstractAnnotationConfigDispatcherServletInitializer {

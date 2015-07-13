@@ -10,19 +10,21 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.petfinder.entity.PetfinderPetRecord;
 import org.petfinder.entity.PetfinderPetRecordList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletResponse;
 
 import com.nexient.petfinder.dto.PetDto;
 import com.nexient.petfinder.util.PetFinderTypes;
@@ -37,21 +39,20 @@ import com.systemsinmotion.petrescue.entity.SizeType;
 import com.systemsinmotion.petrescue.web.PetFinderConsumer;
 
 @RestController
-@RequestMapping("/pet")
+//@RequestMapping("/pet")
 public class PetController {
 
 	@Autowired
 	private PetFinderConsumer petFinderService;
 
-	@RequestMapping(value="/random", produces="application/json")
+	@RequestMapping(value = "pet/random", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public PetDto[] getRandomPet() {
-		return new PetDto[] { PetDto.fromPetFinderPetRecord(petFinderService
-				.randomPet(null, null, null, null, null, null, "full", null)) };
+		return new PetDto[] { PetDto
+				.fromPetFinderPetRecord(petFinderService.randomPet(null, null, null, null, null, null, "full", null)) };
 	}
 
-	@RequestMapping(value="/search", produces="application/json")
-	public PetDto[] searchPets(
-			@RequestParam("location") String location,
+	@RequestMapping(value = "pet/search", produces = "application/json")
+	public PetDto[] searchPets(@RequestParam("location") String location,
 			@RequestParam(value = "animal", required = false) AnimalType animalType,
 			@RequestParam(value = "breed", required = false) String[] breedParameters,
 			@RequestParam(value = "sex", required = false) GenderType genderType,
@@ -61,8 +62,7 @@ public class PetController {
 			@RequestParam(value = "count", required = false, defaultValue = "30") int count) {
 		// Validate Location
 		if (location == null || location.isEmpty())
-			throw new IllegalArgumentException(
-					"The 'location' parameter must not be empty.");
+			throw new IllegalArgumentException("The 'location' parameter must not be empty.");
 
 		if (breedParameters == null) {
 			breedParameters = new String[0];
@@ -76,22 +76,15 @@ public class PetController {
 			Set<String> validBreeds;
 			if (animalType != null) {
 				validBreeds = new TreeSet<String>(Arrays.asList(PetFinderTypes
-						.queryValue(petFinderService.breedList(
-								PetFinderTypes.queryValue(animalType), null))));
+						.queryValue(petFinderService.breedList(PetFinderTypes.queryValue(animalType), null))));
 
 			} else {
-				validBreeds = Arrays
-						.stream(AnimalType.values())
-						.map(type -> PetFinderTypes.queryValueStrict(type))
-						.map(typeString -> petFinderService.breedList(
-								typeString, null))
-						.map(PetFinderTypes::queryValue)
-						.flatMap(Arrays::stream)
-						.collect(Collectors.toCollection(TreeSet::new));
+				validBreeds = Arrays.stream(AnimalType.values()).map(type -> PetFinderTypes.queryValueStrict(type))
+						.map(typeString -> petFinderService.breedList(typeString, null)).map(PetFinderTypes::queryValue)
+						.flatMap(Arrays::stream).collect(Collectors.toCollection(TreeSet::new));
 			}
 
-			List<String> invalidBreeds = breedParametersList.stream()
-					.filter(breed -> !validBreeds.contains(breed))
+			List<String> invalidBreeds = breedParametersList.stream().filter(breed -> !validBreeds.contains(breed))
 					.collect(Collectors.toList());
 
 			if (invalidBreeds.size() > 0)
@@ -111,25 +104,19 @@ public class PetController {
 				String ageTypeString = PetFinderTypes.queryValue(ageType);
 				for (SizeType size : sizeTypes) {
 					String sizeTypeString = PetFinderTypes.queryValue(size);
-					petLists.add(petFinderService.findPet(animalTypeString,
-							breed, sizeTypeString, genderTypeChar, location,
-							ageTypeString, offset, count, "basic", null));
+					petLists.add(petFinderService.findPet(animalTypeString, breed, sizeTypeString, genderTypeChar,
+							location, ageTypeString, offset, count, "basic", null));
 				}
 			}
 		}
 
-		return petLists
-				.stream()
-				.filter(Objects::nonNull)
-				.flatMap(list -> list.getPet().stream())
-				.filter(Objects::nonNull)
-				.map(PetDto::fromPetFinderPetRecord)
-				.sorted((pet1, pet2) -> pet1.getName()
-						.compareTo(pet2.getName())).limit(count)
+		return petLists.stream().filter(Objects::nonNull).flatMap(list -> list.getPet().stream())
+				.filter(Objects::nonNull).map(PetDto::fromPetFinderPetRecord)
+				.sorted((pet1, pet2) -> pet1.getName().compareTo(pet2.getName())).limit(count)
 				.toArray(size -> new PetDto[size]);
 	}
 
-	@RequestMapping(value="/{id}", produces="application/json")
+	@RequestMapping(value = "pet/{id}", produces = "application/json")
 	public PetDto[] getPetById(@PathVariable BigInteger id) {
 		PetfinderPetRecord ppr = petFinderService.readPet(id, "xml");
 		if (ppr == null)
@@ -139,8 +126,7 @@ public class PetController {
 	}
 
 	@ExceptionHandler
-	void handleIllegalArgumentException(IllegalArgumentException e,
-			HttpServletResponse response) throws IOException {
+	void handleIllegalArgumentException(IllegalArgumentException e, HttpServletResponse response) throws IOException {
 		response.sendError(HttpStatus.BAD_REQUEST.value());
 	}
 
