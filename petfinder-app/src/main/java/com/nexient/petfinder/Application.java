@@ -8,8 +8,7 @@ import com.nexient.petfinder.config.WebConfig;
 public class Application {
 	
 	public static void main(String[] args) {
-		ApplicationContext ctx = new AnnotationConfigApplicationContext(
-				WebConfig.class);
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(WebConfig.class);
 	}
 	
 }
